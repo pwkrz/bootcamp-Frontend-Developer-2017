@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<title>3. Czat z użyciem Node.js i WebSockets</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles.css">
+	<script src="scripts.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<div class="page-header"><h1>CZAT</h1></div>
+	<div class="form-horizontal">
+		<form class="form-group form-group-lg" id="nickForm">
+			<label class="col-md-2 control-label">IMIĘ:</label>
+			<div class="col-md-7"><input class="form-control chat" type="text" name="nick" autofocus></div>
+			<div class="col-md-3"><button type="submit" class="btn btn-default btn-lg" id="join">Dołącz</button></div>
+		</form>
+	
+			<div class="chat" id="chatWindow"></div>
+	
+		<form class="form-group form-group-lg" id="messageForm">
+			<label class="col-md-2 control-label">TXT:</label>
+			<div class="col-md-7"><input class="form-control chat" type="textarea" readonly></div>
+			<div class="col-md-3"><button class="btn btn-default btn-lg">Wyślij</button></div>
+		</form>
+	</div>
+	
+</div>
+
+</body>
+</html>

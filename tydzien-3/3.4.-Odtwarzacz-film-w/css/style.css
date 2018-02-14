@@ -1,0 +1,175 @@
+﻿.container {
+	padding-top: 5%;
+	font-size: 18px;
+}
+
+.page-header {
+	margin-bottom: 30px;
+	/* border: 10px solid transparent; */
+	/* border-image: url("bugmenotMovietape.svg") 10 10; */
+}
+
+.page-header h1 {
+	font-family: courier;
+	color: #000;
+	text-shadow: 2px 2px 0px #ababab, -2px -2px 0px #dedede,
+				 3px 3px 0px #ababab, -3px -3px 0px #dedede,
+				 4px 4px 0px #ababab, -4px -4px 0px #dedede;
+}
+
+.page-header h1::-moz-selection {
+    text-shadow: none;
+	background: #00f;
+    color: #fff;
+}
+
+/* .page-header h1:-webkit-selection,
+.page-header h1:selection */
+
+.video-box {
+	width: 100%;
+	margin: auto;
+}
+
+.video-kontener {
+	border: 1px dotted #000;
+	width: 70%;
+	position: relative;
+	margin: 0 auto 20px auto;
+	background-color: #000;
+}
+
+/* .video-kontener:-webkit-full-screen, .video-kontener:-moz-full-screen ,
+.video-kontener:-ms-fullscreen, .video-kontener:fullscreen {
+  width: 100vw;
+  height: 100vh;
+} */
+
+
+/* +++++++++++++++++++++++++++++ */
+/* ++++ KONTROLKI (OGÓLNIE) ++++ */
+/* +++++++++++++++++++++++++++++ */
+
+.controls {
+	width: 100%;
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	opacity: 0;
+	transition: opacity .5s;
+	z-index: 100;
+}
+
+.controls .ctrl-button, .controls .ctrl-button-noactive {
+	margin-right: 1%;
+	cursor: pointer;
+	border: .2em outset #ddd;
+	background-color: #efefef;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	border-radius: 0;
+	min-width: 2.3em;
+	padding: .1em auto;
+	z-index: 1;
+}
+
+.controls .ctrl-button:first-child {
+	margin-left: 1%;
+}
+
+.controls .ctrl-button:active {
+	border: 3px inset #ddd;
+}
+
+.disabled {
+	pointer-events: none;
+}
+
+.timer span {
+	color: #000;
+	opacity: .7;
+}
+
+.disabled .ic, .disabled  span {
+	color: lightgrey;
+}
+
+.pressed {
+	border-style: inset !important;
+}
+
+.ic {
+	background-color: #000;
+	color: transparent;
+	font-size: 100%;
+	text-shadow: 1.5px 1.5px 0 rgba(200,200,200,.5);
+	-webkit-background-clip: text;
+		-moz-background-clip: text;
+			background-clip: text;
+}
+
+.timer {
+	white-space: nowrap;
+	margin: auto 1%;
+	padding: 0em .4em;
+	background-color: #efefef;
+	border: 2px inset #ddd;
+	color: #010101;
+	font-size: .7em;
+	opacity: .9;
+	z-index: 99;
+}
+
+.video-progress-box, .video-progress {
+	width: 100%;
+}
+
+.video-progress {
+	cursor: pointer;
+}
+
+/* +++++++++++++++++++++++++++++ */
+/* +++++++++++ VOLUME ++++++++++ */
+/* +++++++++++++++++++++++++++++ */
+
+.volume-box {
+	position: relative;
+}
+
+.volume-box .volume {
+	position: absolute;
+	display: none;
+	/* opacity: 0; */
+    height: 2em;
+    width: 7em;
+	transform: rotate(270deg);
+	padding: 0em .5em;
+	bottom: 270%;
+	left: -110%;
+}
+
+.volume input {
+	width: 100%;
+	cursor: pointer;
+}
+
+/* +++++++++++++++++++++++++++++ */
+/* +++++++++++ EJECT ++++++++++ */
+/* +++++++++++++++++++++++++++++ */
+
+.eject {
+	position: relative;
+	display: block;
+	overflow: hidden;
+}
+
+.eject .video-input {
+	z-index: -1;
+	display: block;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

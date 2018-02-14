@@ -1,0 +1,118 @@
+body {
+	font-family: "Segoe ui";
+	color: #000;
+}
+
+.page-header {
+	border-bottom: 1px solid #000 !important;
+}
+
+.page-header h1 {
+	font-weight: 900;
+	font-size: 3em;
+
+}
+
+.chat {
+	margin: 20px auto;
+	border: 1px solid #000;
+}
+
+input.chat {
+	color: #000;
+	padding: 0 0 0 10px !important;
+	font-size: 3em !important;
+	border-radius: 0% !important;
+}
+
+.form-horizontal .form-group .col-sm-9 {
+	position: relative;	
+}
+.form-horizontal .form-group .control-label {
+	color: #000;
+	font-size: 3em;
+	font-weight: 100;
+	text-align: left;
+	letter-spacing: 0.4em;
+	padding-left: 25px;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    padding: 0;
+    font-size: 3em;
+	line-height: 1em;
+	overflow: hidden;
+}
+
+.form-group button {
+	width: 100%;
+	border: 1px solid #000;
+	border-radius: 0;
+	margin: 20px auto;
+	text-transform: uppercase;
+}
+
+.form-group button:hover,
+.form-group button:active,
+.form-group button:focus {
+	color: #fff;
+	background-color: #66afe9;
+}
+
+#nickForm input[readonly=true] {
+	background-color: #ffec60;
+	border-color: #ffec60;
+}
+
+.form-group input[readonly]:focus {
+	box-shadow: none;
+	border-color: #000;
+}
+
+.form-group button[disabled=true] {
+	color: #dfdfdf;
+	border-color: #dfdfdf;
+	pointer-events: none;
+}
+
+div.chat {
+	width: 100%;
+	height: 200px;
+	padding: 10px 30px;
+	overflow: scroll;
+}
+
+#chatWindow {
+	font-size: 2em;	
+}
+
+#chatWindow .time {
+	font-size: 1em;
+	font-weight: 100;
+	letter-spacing: 0.4em;
+	margin-right: 1em;
+}
+
+#chatWindow .status {
+	font-style: italic;
+	color: #dfdfdf;
+}
+
+#chatWindow .name {
+	margin-right: 1em;
+	font-weight: 600;
+}
+
+.chatRowSelf {
+	float: right;
+	background-color: #ffec60;
+	background-color: rgba(255,236,96,0.5);
+	margin-bottom: 0.5em;
+}
+
+.chatRow {
+	float: left;
+	background-color: #66b76a;
+	background-color: rgba(102,183,106,0.5);
+	margin-bottom: 0.5em;
+}
