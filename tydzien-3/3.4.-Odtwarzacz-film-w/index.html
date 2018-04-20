@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>3.4. Odtwarzacz filmów</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/icons/style.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/scripts.js"></script>
@@ -12,50 +12,51 @@
 
 <body>
 
-<div class="container text-center">
+	<div class="container text-center">
 
-<div class="page-header"><h1>Odtwarzacz filmów w HTML5</h1></div>
-
-<div id="videoKontener" class="video-kontener " data-hovered="false">
-
-<video id="videoBox" class="video-box">
-</video>
-
-<div id="kontrolki" class="controls d-flex flex-row align-items-center">
-
-	<div id="playpause" data-disable="true" class="ctrl-button ">
-		<i class="ic icon-play3"></i>
-	</div>
-	
-	<div id="stop" data-disable="true" class="ctrl-button "><i class="ic icon-stop2"></i></div>
-	
-	<div id="videoProgress" class="video-progress-box d-flex flex-row align-items-center">
-		<input id="videoProgressRange" data-disable="true" class="video-progress " type="range" step="0.01">
-	</div>
-	
-	<div id="timer" data-disable="true" class="timer ">
-		<span id="timeProgress" class="">00:00:00</span><span> / </span><span id="timeDuration" class="">00:00:00</span>
-	</div>
-	
-	<div id="eject" class="eject ctrl-button">
-		<i class="ic icon-eject"></i>
-		<input id="videoInput" class="video-input" name="myFile" type="file" accept="video/mp4,video/webm,video/ogg">
-	</div>
-	
-	<div id="mute" data-state="on" class="volume-box ctrl-button-noactive">
-		<i class="ic icon-volume-medium"></i>
-		<div id="volumeSlider" class="volume">
-			<input id="volumeRange" class="" type="range" min="0" max="100" value="10" step="1">
+		<div class="page-header">
+			<h1>Local video file player (HTML5)</h1>
 		</div>
+
+		<div id="videoWrapper" class="video-wrapper " data-hovered="false">
+
+			<video id="videoBox" class="video-box"></video>
+
+			<div id="controls" class="controls d-flex flex-row align-items-center">
+
+				<div id="playpause" data-disable="true" class="ctrl-button ">
+					<i class="ic icon-play3"></i>
+				</div>
+				
+				<div id="stop" data-disable="true" class="ctrl-button "><i class="ic icon-stop2"></i></div>
+				
+				<div id="videoProgress" class="video-progress-box d-flex flex-row align-items-center">
+					<input id="videoProgressRange" data-disable="true" class="video-progress " type="range" step="0.01">
+				</div>
+				
+				<div id="timer" data-disable="true" class="timer ">
+					<span id="timeProgress" class="">00:00:00</span><span> / </span><span id="timeDuration" class="">00:00:00</span>
+				</div>
+				
+				<div id="eject" class="eject ctrl-button">
+					<i class="ic icon-eject"></i>
+					<input id="videoInput" class="video-input" name="myFile" type="file" accept="video/mp4,video/webm,video/ogg">
+				</div>
+				
+				<div id="mute" data-state="on" class="volume-box ctrl-button-noactive">
+					<i class="ic icon-volume-medium"></i>
+					<div id="volumeSlider" class="volume">
+						<input id="volumeRange" class="" type="range" min="0" max="100" value="10" step="1">
+					</div>
+				</div>
+
+				<div id="fs" class="ctrl-button " ><i class="ic icon-enlarge"></i></div>
+
+			</div>
+
+		</div>
+
 	</div>
-
-	<div id="fs" class="ctrl-button " ><i class="ic icon-enlarge"></i></div>
-
-</div>
-
-</div>
-
-</div>
 
 </body>
 </html>

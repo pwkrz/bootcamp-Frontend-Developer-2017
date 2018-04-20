@@ -31,13 +31,21 @@
 	margin: auto;
 }
 
-.video-kontener {
-	border: 1px dotted #000;
+.video-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 70%;
+	height: 65vh;
 	position: relative;
 	margin: 0 auto 20px auto;
 	background-color: #000;
 }
+
+.video-wrapper.full-screen {
+	width: 100vw;
+	height: 100vh;
+  }
 
 /* .video-kontener:-webkit-full-screen, .video-kontener:-moz-full-screen ,
 .video-kontener:-ms-fullscreen, .video-kontener:fullscreen {
