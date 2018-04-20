@@ -1,6 +1,4 @@
-﻿// revoke.URL, scroll do podstawy playera po załadowaniu filmu
-
-window.onload = function(){
+﻿window.onload = function(){
 	
 	var filmPlayer = {
 				
@@ -9,12 +7,12 @@ window.onload = function(){
 			this.videoWrapper.onmouseover = function(){
 				this.controls.style.opacity = 1;
 				this.videoWrapper.dataset.hovered = "true";
-				clearTimeout(this.controls.controlsOut)
+				clearTimeout(this.controlsOut)
 			}.bind(this);
 			
 			this.videoWrapper.onmouseout = function(){
 				this.videoWrapper.dataset.hovered = "false";
-				this.controls.controlsOut = setTimeout(function(){ this.controls.style.opacity = ""; clearTimeout(this.controls.controlsOut)}, 1000);
+				this.controlsOut = setTimeout(function(){ this.controls.style.opacity = ""; clearTimeout(this.controlsOut)}, 1000);
 			}.bind(this);
 			
 			(this.controls.mute || this.controls.volumeSlider).onmouseover = function(){
@@ -158,7 +156,7 @@ window.onload = function(){
 			for(el in this.controls){
 				try { if(this.controls.hasOwnProperty(el) && this.controls[el].dataset.disable == "true"){
 					this.controls[el].classList.remove("disabled");
-				};} catch(e) { console.log("\"" + el + "\" does not contain \"classList\" property because its type is: " + (typeof this.controls[el])) }
+				};} catch(e) { throw new TypeError("\"" + el + "\" does not contain \"classList\" property because its type is: " + (typeof this.controls[el])) }
 			};
 			
 			var _FSenabled = document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled;
@@ -173,7 +171,7 @@ window.onload = function(){
 			for(el in this.controls){
 				try { if(this.controls.hasOwnProperty(el) && this.controls[el].dataset.disable == "true"){
 					this.controls[el].classList.add("disabled");
-				};} catch(e) { console.log("\"" + el + "\" does not contain \"classList\" property because its type is: " + (typeof this.controls[el])) }
+				};} catch(e) { throw new TypeError("\"" + el + "\" does not contain \"classList\" property because its type is: " + (typeof this.controls[el])) }
 			};			
 		},
 		
@@ -183,14 +181,28 @@ window.onload = function(){
 			
 			this.controls.timeDuration.innerHTML = _czas;
 		},
+
+		fitVideoInBox: function(){
+
+			var videoRatio = this.video.videoWidth / this.video.videoHeight,
+				wrapperRatio = this.videoWrapper.getBoundingClientRect().width / this.videoWrapper.getBoundingClientRect().height;
+
+			if( videoRatio > wrapperRatio ){
+				this.video.style.width = "100%";
+			} else {
+				this.video.style.height = "100%";
+			}
+		},
 		
 		ejectHandler: function(){			
 			this.controls.videoInput.click();
 			
 			this.video.onloadeddata = function(){
+				// console.log(this.video.videoHeight, this.video.videoWidth)
+				this.fitVideoInBox();
 				this.setDuration();
 				this.controls.stop.classList.contains("disabled") ? this.unblockControls() : this.faToggle("playpause", ["icon-play3"], false);
-				this.videoWrapper.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+				// this.videoWrapper.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 				window.URL.revokeObjectURL(this.url)
 			}.bind(this)
 			

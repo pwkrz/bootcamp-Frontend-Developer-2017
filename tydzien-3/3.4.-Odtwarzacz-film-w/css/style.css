@@ -1,4 +1,8 @@
-﻿.container {
+﻿body {
+	background-color: #444;
+}
+
+.container {
 	padding-top: 5%;
 	font-size: 18px;
 }
