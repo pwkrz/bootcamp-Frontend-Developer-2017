@@ -3,8 +3,11 @@
 }
 
 .container {
+	width: 100vw;
 	padding-top: 5%;
 	font-size: 18px;
+	margin: 0;
+	max-width: 100vw;
 }
 
 .page-header {
@@ -19,20 +22,38 @@
 				 4px 4px 0px #ababab, -4px -4px 0px #dedede;
 }
 
-.video-box {
-	width: 100%;
-	margin: auto;
+@media screen and (orientation: portrait) {
+    .portrait-info {
+		display: block;
+	}
+	.video-wrapper {
+		display: none;
+	}
+}
+
+@media screen and (orientation: landscape) {
+    .portrait-info {
+		display: none;
+	}
+	.video-wrapper {
+		display: flex;
+	}
 }
 
 .video-wrapper {
-	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 70%;
-	height: 65vh;
+	width: 777px;
+	height: 65vmin;
 	position: relative;
-	margin: 0 auto 20px auto;
+	margin: 0 auto;
 	background-color: #000;
+}
+
+@media(max-width: 818px){
+	.video-wrapper {
+		width: 95%;
+	}
 }
 
 .video-wrapper.full-screen {
@@ -40,15 +61,13 @@
 	height: 100vh;
   }
 
-/* .video-kontener:-webkit-full-screen, .video-kontener:-moz-full-screen ,
-.video-kontener:-ms-fullscreen, .video-kontener:fullscreen {
-  width: 100vw;
-  height: 100vh;
-} */
-
+.video-box {
+	width: 100%;
+	margin: auto;
+}
 
 /* +++++++++++++++++++++++++++++ */
-/* ++++ KONTROLKI (OGÓLNIE) ++++ */
+/* +++++ CONTROLS (GENERAL) ++++ */
 /* +++++++++++++++++++++++++++++ */
 
 .controls {
