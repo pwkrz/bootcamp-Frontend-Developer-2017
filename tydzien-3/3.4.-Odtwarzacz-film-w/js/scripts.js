@@ -1,19 +1,28 @@
 ﻿window.onload = function(){
 	
 	var filmPlayer = {
+
+		hideControls: function(){
+			this.controls.style.opacity = "";
+
+			clearTimeout(this.controlsOut);
+
+			this.videoWrapper.dataset.hovered = "false";
+		},
+
+		displayControls: function(timeout){
+			this.controls.style.opacity = 1;
+
+			this.videoWrapper.dataset.hovered = "true";
+
+			clearTimeout(this.controlsOut);
+
+			this.controlsOut = setTimeout( this.hideControls.bind(this), timeout );
+		},
 				
 		controlsToggler: function(){
 			
-			this.videoWrapper.onmouseover = function(){
-				this.controls.style.opacity = 1;
-				this.videoWrapper.dataset.hovered = "true";
-				clearTimeout(this.controlsOut)
-			}.bind(this);
-			
-			this.videoWrapper.onmouseout = function(){
-				this.videoWrapper.dataset.hovered = "false";
-				this.controlsOut = setTimeout(function(){ this.controls.style.opacity = ""; clearTimeout(this.controlsOut)}, 1000);
-			}.bind(this);
+			this.videoWrapper.onmousemove = this.displayControls.bind(this, 1500);
 			
 			(this.controls.mute || this.controls.volumeSlider).onmouseover = function(){
 				this.controls.volumeSlider.style.display = "block";
@@ -22,7 +31,6 @@
 			(this.controls.mute || this.controls.volumeSlider).onmouseout = function(){
 				this.controls.volumeSlider.style.display = "none";
 			}.bind(this);
-			
 		},
 		
 		assignEvents: {
@@ -35,9 +43,10 @@
 				that.controls.volumeSlider.addEventListener("click", function(e){ e.stopPropagation() }, false);
 				that.controls.mute.addEventListener("click", that.muteUnmute.bind(that), false);
 				that.controls.volumeRange.onchange = that.volumeChange.bind(that);
-				// that.controls.addEventListener("click", function(e){ e.stopPropagation() }, false);
 				that.controls.fsButton.onclick = that.toggleFullScreen.bind(that);
 				that.video.ondblclick = that.toggleFullScreen.bind(that);
+				that.video.oncontextmenu = function(e){ e.preventDefault() };
+				that.videoWrapper.ontouchstart = that.displayControls.bind(that, 4500);
 				
 			},
 			
@@ -48,7 +57,7 @@
 				that.videoWrapper.addEventListener("keypress", function(e){ console.log(e); if(e.keyCode === 32){ that.togglePlay() } }.bind(that), false);
 				that.controls.stop.addEventListener("click", that.stopFilm.bind(that), false);
 				that.video.addEventListener("timeupdate", that.trackProgress.bind(that), false);
-				that.controls.videoProgressRange.onchange = that.scrollPlayback.bind(that);
+				that.controls.videoProgressRange.oninput = that.scrollPlayback.bind(that);
 				that.video.onended = that.videoEnded.bind(that)
 				
 			}
@@ -58,7 +67,7 @@
 			
 			this.video.currentTime = 0;
 			this.video.paused = true;
-			this.faToggle("playpause", ["fa-play"], false)
+			this.faToggle("playpause", ["icon-play3"], false)
 			
 		},
 
@@ -76,7 +85,7 @@
 			if(_isFS){ document[this._exitFS](); } else { this.videoWrapper[this._requestFS](); };
 		},
 		
-		scrollPlayback: function(){
+		scrollPlayback: function(e){
 			
 			this.video.currentTime = this.controls.videoProgressRange.value / 100 * this.video.duration;
 			
@@ -198,18 +207,20 @@
 			this.controls.videoInput.click();
 			
 			this.video.onloadeddata = function(){
-				// console.log(this.video.videoHeight, this.video.videoWidth)
 				this.fitVideoInBox();
+
 				this.setDuration();
+
 				this.controls.stop.classList.contains("disabled") ? this.unblockControls() : this.faToggle("playpause", ["icon-play3"], false);
-				// this.videoWrapper.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-				window.URL.revokeObjectURL(this.url)
+
+				// Revoking the url seems to mess up video playback in Chrome
+				// window.URL.revokeObjectURL(this.url);
 			}.bind(this)
 			
 			this.controls.videoInput.onchange = function(e){
 				if(this.controls.videoInput.files[0].type != ("video/mp4" || "video/webm" || "video/ogg")){ alert("This player supports only MP4, OGG and WEBM files."); return }
 				
-				this.url = window.URL.createObjectURL(this.controls.videoInput.files[0])
+				this.url = window.URL.createObjectURL(this.controls.videoInput.files[0]);
 				
 				this.video.src = this.url;
 				
