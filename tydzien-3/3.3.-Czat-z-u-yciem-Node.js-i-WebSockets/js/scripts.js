@@ -119,6 +119,7 @@
 		this.sendToServer({
 				
 				type: "status",
+				nick: this.nick,
 				message: this.nick + " joined the chat!"
 				
 		});
