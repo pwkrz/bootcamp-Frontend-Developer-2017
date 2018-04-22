@@ -48,11 +48,17 @@
 			newOutput.classList.add("chatRow");
 		};
 		
+		var nick = data.nick && data.nick === this.nick ?  "You" : data.nick;
+
 		if(data.type === "status"){
-			newOutput.innerHTML = '<span class="status">' + data.message + '</span>';
+
+			var status = data.nick ? nick + " " + data.message : data.message;
+
+			newOutput.innerHTML = '<span class="status">' + status + '</span>';
+
 		} else if(data.type === "message"){
-			var nick = data.nick != this.nick ? nick = data.nick + ":" : nick = "You:";
-			newOutput.innerHTML = '<span class="time">' + currTime + '</span><span class="name">' + nick + '</span><span class="message">' + data.message + '</span>';
+
+			newOutput.innerHTML = '<span class="time">' + currTime + '</span><span class="name">' + nick + ": " + '</span><span class="message">' + data.message + '</span>';
 		}
 		this.chatWindow.appendChild(newOutput);
 		this.chatWindow.appendChild(clearfix);
@@ -100,7 +106,7 @@
 		
 		} else {
 
-			this.ws = new WebSocket("ws://localhost:8001");
+			this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
 			
 			this.ws.onopen = this.socketOpenHandler.bind(this);
 			this.ws.onmessage = this.dataReceivedHandler.bind(this);
@@ -120,7 +126,7 @@
 				
 				type: "status",
 				nick: this.nick,
-				message: this.nick + " joined the chat!"
+				message: "joined the chat!"
 				
 		});
 		
