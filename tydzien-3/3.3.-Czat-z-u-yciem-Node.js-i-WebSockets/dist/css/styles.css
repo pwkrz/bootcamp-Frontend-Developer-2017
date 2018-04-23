@@ -26,9 +26,6 @@ input.chat {
 	margin-bottom: 0;
 }
 
-/* .form-horizontal .form-group .col-sm-9 {
-	position: relative;	
-} */
 .form-horizontal .form-group .control-label {
 	color: #000;
 	font-size: 3em;
@@ -36,6 +33,9 @@ input.chat {
 	text-align: left;
 	letter-spacing: 0.3em;
 	padding-left: 17px;
+}
+.form-group input {
+	transition: background-color .5s ease;
 }
 
 .form-horizontal .form-group .help-block {
@@ -70,8 +70,10 @@ input.chat {
 }
 
 #nickForm input[readonly=true] {
-	background-color: #ffec60;
-	border-color: #ffec60;
+	color: #fff;
+	font-weight: 700;
+	background-color: #894763;
+	border-color: #894763;
 }
 
 .form-group input[readonly]:focus {
@@ -96,16 +98,20 @@ div.chat {
 	font-size: 2em;	
 }
 
+#chatWindow .status {
+	color: #fff;
+	font-size: .7em;
+	line-height: 1em;
+	font-weight: 100;
+	font-style: italic;
+}
+
 #chatWindow .time {
+	color: #fff;
 	font-size: 1em;
 	font-weight: 100;
 	letter-spacing: 0.4em;
 	margin-right: 1em;
-}
-
-#chatWindow .status {
-	font-style: italic;
-	color: #dfdfdf;
 }
 
 #chatWindow .name {
@@ -116,12 +122,12 @@ div.chat {
 .chat-row {
 	float: left;
 	background-color: #66b76a;
-	background-color: rgba(102,183,106,0.5);
 	margin-bottom: 0.5em;
+	padding: 0 .1em .1em;
+	line-height: 1em;
 }
 
 .chat-row.chat-row-self {
 	float: right;
-	background-color: #ffec60;
-	background-color: rgba(255,236,96,0.5);
+	background-color: #894763;
 }
