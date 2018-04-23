@@ -55,22 +55,27 @@ window.onload = function(){
 		this.messageForm = document.querySelector("#messageForm");
 		this.chatWindow = document.querySelector("#chatWindow");
 		
-		this.nickForm.onsubmit = this.validateNick.bind(this);
+		this.nickForm.onsubmit = this.validateInput.bind(this, 3, this.warnings.nickLength, "nick", "joinChat");
 		this.nickForm[0].onkeypress = removeClass.bind(this.nickForm, "has-error");
 		this.messageForm[0].onkeypress = removeClass.bind(this.messageForm, "has-error");
 	};
 
+	Chat.prototype.warnings = {
 
+		messageLength: "Your message must contain at least 1 letter.",
+		nickLength: "Nickname must be at least 3 characters long.",
+		noWsSupport: "Your browser does not support the HTML5 websocket technology. Please consider switching\
+		to the latest version of Chrome or Firefox."
+	
+	};
 
 	Chat.prototype.checkWsSupport = function(){
 
 		if( !window.WebSocket ){
-			document.write("Your browser does not support the HTML5 websocket technology. Please consider switching\
-			 to the latest version of Chrome or Firefox.");
+			document.write(this.warnings.noWsSupport);
 		} else {
 			return true;
 		}
-
 	};
 
 	Chat.prototype.formValidation = function(formId, warning){
@@ -141,24 +146,24 @@ window.onload = function(){
 		});
 	};
 
-	Chat.prototype.validateNick = function(e){
+	Chat.prototype.validateInput = function(minLength, warning, inputStore, callback, event){
 
-		e.preventDefault();
+		event.preventDefault();
 
-		if(this.nickForm[0].value.length < 3){
+		var input = event.target[0].value.trim();
 
-			this.formValidation(e.target.id, "Nickname must be at least 3 characters long.");
+		if(input.length < minLength){
+
+			this.formValidation(event.target.id, warning);
 		
 		} else {
 
-			this.nick = this.nickForm[0].value;
-
-			this.joinChat();
-
+			this[inputStore] = input;
+			this[callback]();
 		}
 	};
 
-	Chat.prototype.joinChat = function(e){
+	Chat.prototype.joinChat = function(){
 
 		this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
 		
@@ -185,34 +190,20 @@ window.onload = function(){
 		
 		this.messageForm[0].focus();
 		
-		this.messageForm.onsubmit = this.submitMessage.bind(this);
-			
+		this.messageForm.onsubmit = this.validateInput.bind(this, 1, this.warnings.messageLength);	
 	};
 
-	Chat.prototype.submitMessage = function(e){
-		
-		e.preventDefault();
-		
-		this.txt = this.messageForm[0].value.trim();
+	Chat.prototype.submitMessage = function(){
 		
 		this.messageForm[0].value = "";
 		
 		this.messageForm[0].focus();
-		
-		if(this.txt.length < 1){
-
-			this.formValidation(e.target.id, "Your message must contain at least 1 letter.");
 			
-		} else {
-			
-			this.sendToServer({
-				type: "message",
-				nick: this.nick,
-				message: this.txt
-			})
-			
-		}
-		
+		this.sendToServer({
+			type: "message",
+			nick: this.nick,
+			message: this.txt
+		})		
 	};
 
 	Chat.prototype.sendToServer = function(data){
