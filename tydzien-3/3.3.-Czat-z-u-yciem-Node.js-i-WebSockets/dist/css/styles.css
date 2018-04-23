@@ -113,16 +113,15 @@ div.chat {
 	font-weight: 600;
 }
 
-.chatRowSelf {
-	float: right;
-	background-color: #ffec60;
-	background-color: rgba(255,236,96,0.5);
-	margin-bottom: 0.5em;
-}
-
-.chatRow {
+.chat-row {
 	float: left;
 	background-color: #66b76a;
 	background-color: rgba(102,183,106,0.5);
 	margin-bottom: 0.5em;
+}
+
+.chat-row.chat-row-self {
+	float: right;
+	background-color: #ffec60;
+	background-color: rgba(255,236,96,0.5);
 }

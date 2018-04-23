@@ -1,8 +1,55 @@
-﻿window.onload = function(){
+﻿function newElement(type, classArray){
+
+	var el = document.createElement(type);
+
+	classArray.forEach(function(classItem){
+
+		if (Array.isArray(classItem)) {
+
+			if (classItem[1]) el.classList.add(classItem[0])
+
+		} else {
+
+			el.classList.add(classItem)
+
+		}
+	});
+
+	return el;
+};
+
+function appendPolyfill(parent, childArray){
+
+	if( !( parent.nodeType
+			&& Array.isArray(childArray)
+			&& childArray.every( function(el){ return Boolean(el.nodeType) } ) ) ){
+
+		return false;
+
+	} else {
+
+		childArray.forEach( function(el){
+
+			parent.appendChild(el);
+
+		} );
+	}
+}
+
+function removeClass(className){
+
+	if ( this.classList && this.classList.contains(className) ) {
+
+		this.classList.remove(className);
+		
+	}
+}
+
+window.onload = function(){
 	
 	function Chat(){
 		
-		if(!window.WebSocket) document.write("Your browser does not support the HTML5 websocket technology. Please consider switching to the latest version of Chrome or Firefox.");
+		this.checkWsSupport();
 
 		this.nickForm = document.querySelector("#nickForm");
 		this.nickInput = this.nickForm.querySelector("input");
@@ -10,12 +57,23 @@
 		this.messageInput = this.messageForm.querySelector("input");
 		this.sendButton = this.messageForm.querySelector("button");
 		this.chatWindow = document.querySelector("#chatWindow");
-
-		
-		this.sendButton.setAttribute("disabled", true);
 		
 		this.nickForm.onsubmit = this.joinChat.bind(this);
-		
+		this.nickInput.onkeypress = removeClass.bind(this.nickForm, "has-error");
+		this.messageInput.onkeypress = removeClass.bind(this.messageForm, "has-error");
+	};
+
+
+
+	Chat.prototype.checkWsSupport = function(){
+
+		if( !window.WebSocket ){
+			document.write("Your browser does not support the HTML5 websocket technology. Please consider switching\
+			 to the latest version of Chrome or Firefox.");
+		} else {
+			return true;
+		}
+
 	};
 
 	Chat.prototype.validation = function(el, warning){
@@ -26,52 +84,40 @@
 		
 		el.querySelector("input").focus();
 		
-		el.querySelector("input").onkeypress = function(){
-			this.classList.remove("has-error");		
-		}.bind(el);
-		
 		return;
-		
+	};
+
+	Chat.prototype.scrollTopChatWindow = function(){
+
+		this.chatWindow.scrollTop = this.chatWindow.scrollHeight;
+
 	};
 
 	Chat.prototype.newChatOutput = function(data){
 		
-		var newOutput = document.createElement("div"),
-			clearfix = document.createElement("div"),
-			date = new Date(),
-			currTime = date.toTimeString().split(" ")[0],
-			nick;
-			
-		clearfix.classList.add("clearfix");
-			
-		if(data.nick === this.nick){
+		var selfCheck = data.nick ? data.nick === this.nick : false;
+			newOutput = newElement("div", ["chat-row", ["chat-row-self", selfCheck]]),
+			clearfix = newElement("div", ["clearfix"]),
+			nick = selfCheck ? "You" : data.nick;
 
-			newOutput.classList.add("chatRowSelf");
-
-			nick = "You";
-
-		} else {
-
-			newOutput.classList.add("chatRow");
-
-			nick = data.nick;
-		};
-
-		if(data.type === "status" || data.type === "accepted"){
-
-			var status = data.nick ? nick + " " + data.message : data.message;
-
-			newOutput.innerHTML = '<span class="status">' + status + '</span>';
-
-		} else if(data.type === "message"){
-
-			newOutput.innerHTML = '<span class="time">' + currTime + '</span><span class="name">' + nick + ": " + '</span><span class="message">' + data.message + '</span>';
+		switch(data.type){
+			case "status":
+			case "accepted":
+				var status = data.nick ? nick + " " + data.message : data.message;
+				newOutput.innerHTML = '<span class="status">' + status + '</span>';
+				break;
+			case "message":
+				var date = new Date(),
+					currTime = date.toTimeString().split(" ")[0];
+					
+				newOutput.innerHTML = '<span class="time">' + currTime + '</span><span class="name">' + nick + ": " + 
+				'</span><span class="message">' + data.message + '</span>';
+				break;
 		}
-		this.chatWindow.appendChild(newOutput);
-		this.chatWindow.appendChild(clearfix);
-		
-		this.chatWindow.scrollTop = this.chatWindow.scrollHeight;
-		
+
+		appendPolyfill(this.chatWindow, [newOutput, clearfix]);
+
+		this.scrollTopChatWindow();
 	};
 
 	Chat.prototype.blockForms = function(){
@@ -83,9 +129,7 @@
 			} else if(el.nodeName === "BUTTON"){
 				el.setAttribute("disabled", true);
 			};
-			
-		});
-		
+		});	
 	};
 
 	Chat.prototype.unblockForms = function(){
@@ -97,9 +141,7 @@
 			} else if(el.nodeName === "BUTTON"){
 				el.removeAttribute("disabled");
 			};
-			
 		});
-		
 	};
 
 	Chat.prototype.joinChat = function(e){

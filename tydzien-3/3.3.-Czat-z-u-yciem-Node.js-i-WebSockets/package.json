@@ -4,8 +4,7 @@
   "description": "",
   "main": "scripts.js",
   "scripts": {
-    "prestart": "node ws-server",
-    "start": "node http-server",
+    "start": "node chat-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "pwkrz",
