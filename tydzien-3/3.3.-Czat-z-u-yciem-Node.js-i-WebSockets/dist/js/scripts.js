@@ -52,15 +52,12 @@ window.onload = function(){
 		this.checkWsSupport();
 
 		this.nickForm = document.querySelector("#nickForm");
-		this.nickInput = this.nickForm.querySelector("input");
 		this.messageForm = document.querySelector("#messageForm");
-		this.messageInput = this.messageForm.querySelector("input");
-		this.sendButton = this.messageForm.querySelector("button");
 		this.chatWindow = document.querySelector("#chatWindow");
 		
-		this.nickForm.onsubmit = this.joinChat.bind(this);
-		this.nickInput.onkeypress = removeClass.bind(this.nickForm, "has-error");
-		this.messageInput.onkeypress = removeClass.bind(this.messageForm, "has-error");
+		this.nickForm.onsubmit = this.validateNick.bind(this);
+		this.nickForm[0].onkeypress = removeClass.bind(this.nickForm, "has-error");
+		this.messageForm[0].onkeypress = removeClass.bind(this.messageForm, "has-error");
 	};
 
 
@@ -76,13 +73,13 @@ window.onload = function(){
 
 	};
 
-	Chat.prototype.validation = function(el, warning){
+	Chat.prototype.formValidation = function(formId, warning){
 		
-		el.classList.add("has-error");
+		this[formId].classList.add("has-error");
 
-		el.querySelector("small").innerText = warning;
+		this[formId].querySelector("small").innerText = warning;
 		
-		el.querySelector("input").focus();
+		this[formId][0].focus();
 		
 		return;
 	};
@@ -144,25 +141,30 @@ window.onload = function(){
 		});
 	};
 
-	Chat.prototype.joinChat = function(e){
-		
-		e.preventDefault();
-		
-		this.nick = this.nickInput.value.trim();
-		
-		if(this.nick.length < 3){
+	Chat.prototype.validateNick = function(e){
 
-			this.validation(e.target, "Nickname must be at least 3 characters long.");
+		e.preventDefault();
+
+		if(this.nickForm[0].value.length < 3){
+
+			this.formValidation(e.target.id, "Nickname must be at least 3 characters long.");
 		
 		} else {
 
-			this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
-			
-			this.ws.onopen = this.validateConnection.bind(this);
-			this.ws.onmessage = this.dataReceivedHandler.bind(this);
-			this.ws.onclose = this.socketCloseHandler.bind(this);
-		
+			this.nick = this.nickForm[0].value;
+
+			this.joinChat();
+
 		}
+	};
+
+	Chat.prototype.joinChat = function(e){
+
+		this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
+		
+		this.ws.onopen = this.validateConnection.bind(this);
+		this.ws.onmessage = this.dataReceivedHandler.bind(this);
+		this.ws.onclose = this.socketCloseHandler.bind(this);
 	};
 
 	Chat.prototype.validateConnection = function(e){
@@ -178,10 +180,10 @@ window.onload = function(){
 
 	Chat.prototype.startChat = function(){
 		
-		this.blockForms(this.nickInput, this.nickForm.querySelector("button"));
-		this.unblockForms(this.messageInput, this.sendButton);
+		this.blockForms(this.nickForm[0], this.nickForm[1]);
+		this.unblockForms(this.messageForm[0], this.messageForm[1]);
 		
-		this.messageInput.focus();
+		this.messageForm[0].focus();
 		
 		this.messageForm.onsubmit = this.submitMessage.bind(this);
 			
@@ -191,14 +193,16 @@ window.onload = function(){
 		
 		e.preventDefault();
 		
-		this.txt = this.messageInput.value.trim();
+		this.txt = this.messageForm[0].value.trim();
 		
-		this.messageInput.value = "";
+		this.messageForm[0].value = "";
 		
-		this.messageInput.focus();
+		this.messageForm[0].focus();
 		
 		if(this.txt.length < 1){
-			this.validation(e.target, "Your message must contain at least 1 letter.")
+
+			this.formValidation(e.target.id, "Your message must contain at least 1 letter.");
+			
 		} else {
 			
 			this.sendToServer({
@@ -223,7 +227,7 @@ window.onload = function(){
 
 		switch(data.type){
 			case "nickError":
-				this.validation(this.nickForm, data.message);
+				this.formValidation("nickForm", data.message);
 				break;
 			case "accepted":
 				this.startChat();
@@ -239,9 +243,9 @@ window.onload = function(){
 		// TEMPORARY SOLUTION !!!
 		if(closeEvent.reason === "Nickname already in use.") return;
 		
-		this.nickInput.value = "";
+		this.nickForm[0].value = "";
 		
-		this.blockForms(this.nickInput, this.nickForm.querySelector("button"), this.messageInput, this.sendButton);
+		this.blockForms(this.nickForm[0], this.nickForm.querySelector("button"), this.messageForm[0], this.messageForm[1]);
 		
 		this.newChatOutput({
 				
