@@ -23,18 +23,28 @@ input.chat {
 	padding: 0 0 0 10px !important;
 	font-size: 3em !important;
 	border-radius: 0% !important;
+	margin-bottom: 0;
 }
 
-.form-horizontal .form-group .col-sm-9 {
+/* .form-horizontal .form-group .col-sm-9 {
 	position: relative;	
-}
+} */
 .form-horizontal .form-group .control-label {
 	color: #000;
 	font-size: 3em;
 	font-weight: 100;
 	text-align: left;
-	letter-spacing: 0.4em;
-	padding-left: 25px;
+	letter-spacing: 0.3em;
+	padding-left: 17px;
+}
+
+.form-horizontal .form-group .help-block {
+	opacity: 0;
+	min-height: 17px;
+}
+
+.form-horizontal .form-group.has-error .help-block {
+	opacity: 1;
 }
 
 .btn-group-lg > .btn, .btn-lg {

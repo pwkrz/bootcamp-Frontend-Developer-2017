@@ -13,17 +13,27 @@
 	<div class="page-header"><h1>CHAT</h1></div>
 	<div class="form-horizontal">
 		<form class="form-group form-group-lg" id="nickForm">
-			<label class="col-md-2 control-label">NAME:</label>
-			<div class="col-md-7"><input class="form-control chat" type="text" name="nick" autofocus></div>
-			<div class="col-md-3"><button type="submit" class="btn btn-default btn-lg" id="join">Join</button></div>
+			<label class="col-md-2 control-label">NICK:</label>
+			<div class="col-md-7">
+				<input class="form-control chat" type="text" name="nick" autofocus>
+				<small id="nickWarning" class="help-block"></small>
+			</div>
+			<div class="col-md-3">
+				<button type="submit" class="btn btn-default btn-lg" id="join">Join</button>
+			</div>
 		</form>
 	
 			<div class="chat" id="chatWindow"></div>
 	
 		<form class="form-group form-group-lg" id="messageForm">
 			<label class="col-md-2 control-label">TXT:</label>
-			<div class="col-md-7"><input class="form-control chat" type="textarea" readonly></div>
-			<div class="col-md-3"><button class="btn btn-default btn-lg">Send</button></div>
+			<div class="col-md-7">
+				<input class="form-control chat" type="textarea" readonly>
+			</div>
+			<div class="col-md-3">
+				<button class="btn btn-default btn-lg">Send</button>
+				<small id="txtWarning" class="help-block"></small>
+			</div>
 		</form>
 	</div>
 	

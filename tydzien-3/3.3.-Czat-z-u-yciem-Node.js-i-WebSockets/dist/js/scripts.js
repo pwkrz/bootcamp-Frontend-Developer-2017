@@ -10,6 +10,7 @@
 		this.messageInput = this.messageForm.querySelector("input");
 		this.sendButton = this.messageForm.querySelector("button");
 		this.chatWindow = document.querySelector("#chatWindow");
+
 		
 		this.sendButton.setAttribute("disabled", true);
 		
@@ -17,17 +18,17 @@
 		
 	};
 
-	Chat.prototype.validation = function(e){
+	Chat.prototype.validation = function(el, warning){
 		
-		var cel = e.target;
+		el.classList.add("has-error");
+
+		el.querySelector("small").innerText = warning;
 		
-		cel.classList.add("has-error");
+		el.querySelector("input").focus();
 		
-		cel.querySelector("input").focus();
-		
-		cel.querySelector("input").onkeypress = function(){
+		el.querySelector("input").onkeypress = function(){
 			this.classList.remove("has-error");		
-		}.bind(cel);
+		}.bind(el);
 		
 		return;
 		
@@ -38,19 +39,25 @@
 		var newOutput = document.createElement("div"),
 			clearfix = document.createElement("div"),
 			date = new Date(),
-			currTime = date.toTimeString().split(" ")[0];
+			currTime = date.toTimeString().split(" ")[0],
+			nick;
 			
 		clearfix.classList.add("clearfix");
 			
-		if(data.message.indexOf(this.nick) > -1 || data.nick === this.nick){
-			newOutput.classList.add("chatRowSelf");
-		} else {
-			newOutput.classList.add("chatRow");
-		};
-		
-		var nick = data.nick && data.nick === this.nick ?  "You" : data.nick;
+		if(data.nick === this.nick){
 
-		if(data.type === "status"){
+			newOutput.classList.add("chatRowSelf");
+
+			nick = "You";
+
+		} else {
+
+			newOutput.classList.add("chatRow");
+
+			nick = data.nick;
+		};
+
+		if(data.type === "status" || data.type === "accepted"){
 
 			var status = data.nick ? nick + " " + data.message : data.message;
 
@@ -101,34 +108,38 @@
 		
 		this.nick = this.nickInput.value.trim();
 		
-		if(this.nick === ""){
-			this.validation(e)
+		if(this.nick.length < 3){
+
+			this.validation(e.target, "Nickname must be at least 3 characters long.");
 		
 		} else {
 
 			this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
 			
-			this.ws.onopen = this.socketOpenHandler.bind(this);
+			this.ws.onopen = this.validateConnection.bind(this);
 			this.ws.onmessage = this.dataReceivedHandler.bind(this);
 			this.ws.onclose = this.socketCloseHandler.bind(this);
 		
 		}
 	};
 
-	Chat.prototype.socketOpenHandler = function(e){
+	Chat.prototype.validateConnection = function(e){
+
+		this.sendToServer({
+				
+			type: "validation",
+			nick: this.nick
+			
+		});
+
+	};
+
+	Chat.prototype.startChat = function(){
 		
 		this.blockForms(this.nickInput, this.nickForm.querySelector("button"));
 		this.unblockForms(this.messageInput, this.sendButton);
 		
 		this.messageInput.focus();
-
-		this.sendToServer({
-				
-				type: "status",
-				nick: this.nick,
-				message: "joined the chat!"
-				
-		});
 		
 		this.messageForm.onsubmit = this.submitMessage.bind(this);
 			
@@ -144,7 +155,9 @@
 		
 		this.messageInput.focus();
 		
-		if(this.txt === ""){ this.validation(e) } else {
+		if(this.txt.length < 1){
+			this.validation(e.target, "Your message must contain at least 1 letter.")
+		} else {
 			
 			this.sendToServer({
 				type: "message",
@@ -162,13 +175,27 @@
 		
 	};
 
-	Chat.prototype.dataReceivedHandler = function(e){ 
+	Chat.prototype.dataReceivedHandler = function(e){
 
-		this.newChatOutput(JSON.parse(e.data));
+		var data = JSON.parse(e.data);
 
+		switch(data.type){
+			case "nickError":
+				this.validation(this.nickForm, data.message);
+				break;
+			case "accepted":
+				this.startChat();
+				this.newChatOutput(data);
+				break;
+			default:
+				this.newChatOutput(data);
+		}
 	};
 
-	Chat.prototype.socketCloseHandler = function(e){
+	Chat.prototype.socketCloseHandler = function(closeEvent){
+
+		// TEMPORARY SOLUTION !!!
+		if(closeEvent.reason === "Nickname already in use.") return;
 		
 		this.nickInput.value = "";
 		
@@ -180,7 +207,6 @@
 				message: "SERVER UNAVAILABLE!"
 				
 		})
-		
 	};
 
 		
