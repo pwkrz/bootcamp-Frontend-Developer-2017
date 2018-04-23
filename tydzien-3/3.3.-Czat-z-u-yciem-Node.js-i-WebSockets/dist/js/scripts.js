@@ -180,7 +180,6 @@ window.onload = function(){
 			nick: this.nick
 			
 		});
-
 	};
 
 	Chat.prototype.startChat = function(){
@@ -190,20 +189,25 @@ window.onload = function(){
 		
 		this.messageForm[0].focus();
 		
-		this.messageForm.onsubmit = this.validateInput.bind(this, 1, this.warnings.messageLength);	
+		this.messageForm.onsubmit = this.validateInput.bind(this, 1, this.warnings.messageLength, "txt", "submitMessage");	
 	};
 
-	Chat.prototype.submitMessage = function(){
-		
+	Chat.prototype.postSubmitMessage = function(){
+
 		this.messageForm[0].value = "";
 		
 		this.messageForm[0].focus();
+	};
+
+	Chat.prototype.submitMessage = function(){
 			
 		this.sendToServer({
 			type: "message",
 			nick: this.nick,
 			message: this.txt
-		})		
+		});
+
+		this.postSubmitMessage();
 	};
 
 	Chat.prototype.sendToServer = function(data){
