@@ -1,4 +1,6 @@
-﻿function newElement(type, classArray){
+﻿var wsPort = 3000;
+
+function newElement(type, classArray){
 
 	var el = document.createElement(type);
 
@@ -165,7 +167,7 @@ window.onload = function(){
 
 	Chat.prototype.joinChat = function(){
 
-		this.ws = new WebSocket("ws://localhost:3000", "magic-ws-protocol");
+		this.ws = new WebSocket("ws://localhost:" + wsPort, "magic-ws-protocol");
 		
 		this.ws.onopen = this.validateConnection.bind(this);
 		this.ws.onmessage = this.dataReceivedHandler.bind(this);
@@ -235,19 +237,22 @@ window.onload = function(){
 
 	Chat.prototype.socketCloseHandler = function(closeEvent){
 
-		// TEMPORARY SOLUTION !!!
-		if(closeEvent.reason === "Nickname already in use.") return;
-		
-		this.nickForm[0].value = "";
-		
-		this.blockForms(this.nickForm[0], this.nickForm.querySelector("button"), this.messageForm[0], this.messageForm[1]);
-		
-		this.newChatOutput({
+		switch(closeEvent.code){
+			case 4001:
+				// Reason: "Nickname already in use."
+				break;
+			default:
+				this.nickForm[0].value = "";
+			
+				this.blockForms(this.nickForm[0], this.nickForm.querySelector("button"), this.messageForm[0], this.messageForm[1]);
 				
-				type: "status",
-				message: "SERVER UNAVAILABLE!"
-				
-		})
+				this.newChatOutput({
+						
+						type: "status",
+						message: "SERVER UNAVAILABLE!"
+						
+				})
+		}
 	};
 
 		

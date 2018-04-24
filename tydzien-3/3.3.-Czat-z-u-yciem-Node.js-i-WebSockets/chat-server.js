@@ -7,6 +7,7 @@ var getTimeStamp = require("./lib/helpers").getTimeStamp;
 var ipV4check = /\b(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/;
 var port = 3000;
 var userNicks = [];
+var allowedOrigins = [];
 
 var serve = serveStatic("dist", {"acceptRanges": false})
  
@@ -25,9 +26,11 @@ httpServer.listen(port, function() {
 
         if( ipV4check.test( networkInfo[prop][1].address ) ){
 
-            var addressInfo = "http://" + networkInfo[prop][1].address + ":" + port + " (" + prop + ")";
+            var fullURL = "http://" + networkInfo[prop][1].address + ":" + port;
 
-            console.log(addressInfo)
+            allowedOrigins.push(fullURL);
+
+            console.log(fullURL + " (" + prop + ")")
         }
     }
 });
@@ -38,8 +41,8 @@ var wsServer = new WebSocketServer({
 });
  
 function originIsAllowed(origin) {
-  // put logic here to detect whether the specified origin is allowed.
-  return true;
+
+  return allowedOrigins.includes(origin);
 }
  
 wsServer.on("request", function(request) {
@@ -68,7 +71,7 @@ wsServer.on("request", function(request) {
                     message: "This nickname is already in use."
                 }));
 
-                connection.close(1000, "Nickname already in use.")
+                connection.close(4001, "Nickname already in use.")
 
                 return;
 
