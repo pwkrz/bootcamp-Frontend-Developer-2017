@@ -114,7 +114,7 @@ window.onload = function(){
 				var date = new Date(),
 					currTime = date.toTimeString().split(" ")[0];
 					
-				newOutput.innerHTML = '<div><span class="status time">' + currTime + '</span><span class="status name">' + nick + ": " + 
+				newOutput.innerHTML = '<div><span class="status time">' + currTime + '</span><span class="status name">' + nick + 
 				'</span></div><div><span class="message">' + data.message + '</span></div>';
 				break;
 		}
