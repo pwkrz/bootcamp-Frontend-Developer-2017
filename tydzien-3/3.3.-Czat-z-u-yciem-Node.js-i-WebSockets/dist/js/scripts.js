@@ -36,7 +36,7 @@ function appendPolyfill(parent, childArray){
 
 		} );
 	}
-}
+};
 
 function removeClass(className){
 
@@ -45,6 +45,16 @@ function removeClass(className){
 		this.classList.remove(className);
 		
 	}
+};
+
+function sanitizeString(str){
+        
+	var reservedCharCheck = /[\(\)\<\>\@\,\;\:\\\"\'\/\[\]\?\=\{\}\\t]/g;
+
+	return str.replace(reservedCharCheck, function(ch){
+		return "&#" + ch.charCodeAt() + ";"
+	});
+
 }
 
 window.onload = function(){
@@ -107,7 +117,7 @@ window.onload = function(){
 		switch(data.type){
 			case "status":
 			case "accepted":
-				var status = data.nick ? nick + " " + data.message : data.message;
+				var status = data.nick ? "<strong>" + nick + "</strong>" + " " + data.message : data.message;
 				newOutput.innerHTML = '<span class="status">' + status + '</span>';
 				break;
 			case "message":
@@ -160,7 +170,7 @@ window.onload = function(){
 		
 		} else {
 
-			this[inputStore] = input;
+			this[inputStore] = sanitizeString(input);
 			this[callback]();
 		}
 	};

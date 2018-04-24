@@ -4,10 +4,11 @@ var serveStatic = require("serve-static");
 var WebSocketServer = require("websocket").server;
 var networkInterfaces = require("os").networkInterfaces;
 var getTimeStamp = require("./lib/helpers").getTimeStamp;
+var sanitizeString = require("./lib/helpers").sanitizeString;
 var ipV4check = /\b(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/;
 var port = 3000;
 var userNicks = [];
-var allowedOrigins = [];
+var allowedOrigins = ["http://localhost:" + port];
 
 var serve = serveStatic("dist", {"acceptRanges": false})
  
@@ -64,7 +65,9 @@ wsServer.on("request", function(request) {
 
         if( dataObj.type === "validation" && dataObj.nick ){
 
-            if( userNicks.includes(dataObj.nick) ){
+            connection.nick = dataObj.nick;
+
+            if( userNicks.includes(connection.nick) ){
 
                 connection.sendUTF(JSON.stringify({
                     type: "nickError",
@@ -76,8 +79,6 @@ wsServer.on("request", function(request) {
                 return;
 
             } else {
-
-                connection.nick = dataObj.nick;
 
                 userNicks.push(connection.nick);
 
@@ -91,8 +92,13 @@ wsServer.on("request", function(request) {
             }        
         } else {
 
-            wsServer.broadcastUTF(message.utf8Data);
+            if (dataObj.message) {
 
+                dataObj.message = dataObj.message;
+
+            }
+
+            wsServer.broadcastUTF(JSON.stringify(dataObj));
         }
     });
 
