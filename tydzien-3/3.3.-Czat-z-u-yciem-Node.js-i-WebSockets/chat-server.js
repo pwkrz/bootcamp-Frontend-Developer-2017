@@ -2,9 +2,10 @@ var http = require("http");
 var finalhandler = require("finalhandler");
 var serveStatic = require("serve-static");
 var WebSocketServer = require("websocket").server;
+
 var networkInterfaces = require("os").networkInterfaces;
 var getTimeStamp = require("./lib/helpers").getTimeStamp;
-var sanitizeString = require("./lib/helpers").sanitizeString;
+
 var ipV4check = /\b(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/;
 var port = 3000;
 var userNicks = [];
