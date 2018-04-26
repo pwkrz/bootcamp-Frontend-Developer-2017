@@ -2,12 +2,6 @@
 	padding-top: 50px;
 }
 
-.glyphicon-download-alt {
-	content: "\e025";
-	font-size: 18px;
-	margin: auto 10px;
-}
-
 #button {
 	cursor: pointer;
 	margin-bottom: 20px;
@@ -20,12 +14,13 @@
 }
 
 #button span:after {
-	font-family: "Glyphicons Halflings";
-	content: "\e025";
+	content: "\027A6";
+	font-weight: 900;
 	position: absolute;
 	top: 0px;
 	opacity: 0;
 	right: -4px;
+	transform: rotate(90deg) scaleY(2);
 }
 
 #button:hover span {

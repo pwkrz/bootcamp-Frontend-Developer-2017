@@ -1,14 +1,27 @@
 jQuery(function($){
 	
 	var button = $("#button"),
-		listWrapper = $("#listWrapper")
+		listWrapper = $("#listWrapper");
+
+	function isFirefox(){
+
+		return window.navigator.userAgent.includes("Firefox")
+
+	};
+
+	function checkBrowserSupport(){
+
+		if( !(isFirefox()) ) {
+
+			$('#browserWarning').modal("show");
+
+		}
+	};
 	
 	function appendUserData(){
 		
 		var ul = $("<ul>", {
-			class: "list-group col-md-4",
-			display: "block",
-			float: "left"
+			class: "list-group col-md-4"
 		});
 					
 		var nameItem = $("<li>", {class: "list-group-item"}).text("name: "+this.name);
@@ -19,6 +32,8 @@ jQuery(function($){
 		ul.append(nameItem).append(usernameItem).append(emailItem).append(phoneItem).appendTo(listWrapper);
 		
 	};
+
+	checkBrowserSupport();
 		
 	button.on("click", function(){
 		
@@ -30,6 +45,9 @@ jQuery(function($){
 			type: "GET",
 			success: function(data, status, jqXHR){
 				$.each(data, appendUserData);
+			},
+			error: function(err){
+				console.log(err);
 			}
 			
 		});
