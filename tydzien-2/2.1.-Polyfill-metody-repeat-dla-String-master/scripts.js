@@ -1,20 +1,20 @@
 String.prototype.repeatt = function(times){
 	
-	var wynik = "";
-	
-	if(!("repeatt" in Array)){
-	
+	if("repeat" in String.prototype){
+		
+		return this.repeat(times);
+		
+	} else {
+
+		var result = "";
+		
 		for(i=0; i<times; i++){
 				
-			wynik = wynik + this;
+			result += this;
 				
 		};
 	
-	return wynik;
-		
-	} else {
-		
-		return this.repeatt(times);
+		return result;
 		
 	}
 	
