@@ -2,8 +2,7 @@
 <html lang="pl">
 <head>
 	<meta charset="UTF-8">
-	<title>1. Link do mapy z położeniem użytkownika</title>
-	<!-- Latest compiled and minified CSS -->
+	<title>1. Link to a map with user's location</title>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	
@@ -14,13 +13,13 @@
 <div class="container" style="padding-top: 50px;">
 	
 	<div style="width: 100%; margin-bottom: 50px;" class="text-center">
-		<button id="guzik" type="button" class="btn btn-lg btn-default col-sm-12">Wczytaj swoją lokalizację</button>
+		<button id="button" type="button" class="btn btn-lg btn-default col-sm-12">Load your location</button>
 	</div>
 	
 	<div style="padding-top: 50px" class="text-center">
 	
-		<div id="pojemnikNaMape" style="width: 1140px; height: 400px; border: 1px solid #ccc; border-radius: 6px; overflow: hidden">
-		<iframe id="mapa" width="1140" height="400" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=1140&cp=52.162050~0.071350&lvl=11&typ=d&sty=h&src=SHELL&FORM=MBEDV8" scrolling="no">
+		<div id="mapContainer" style="width: 1140px; height: 400px; border: 1px solid #ccc; border-radius: 6px; overflow: hidden">
+		<iframe id="map" width="1140" height="400" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=1140&cp=52.162050~0.071350&lvl=11&typ=d&sty=h&src=SHELL&FORM=MBEDV8" scrolling="no">
 		</iframe>
 		</div>
      

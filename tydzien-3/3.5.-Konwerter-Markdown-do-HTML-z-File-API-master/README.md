@@ -1,4 +1,4 @@
-# Markdown to HTML converter using HTML5 File API
+# Markdown-to-HTML converter using HTML5 File API
 
 **Assignment**
 

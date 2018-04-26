@@ -1,49 +1,45 @@
 window.onload = function(){
 	
-	var konwerter = {
+	var converter = {
 		
-		zaladowanyPlik: function(e){
+		loadedFile: function(e){
 			
-			this.plik = this.fileInput.files[0];
-	
-			// if(file.type.match("image.*")) {
+			this.mdFile = this.fileInput.files[0];
 			
-			this.fileInputInterface.dataset.text = this.plik.name;
+			this.fileInputInterface.dataset.text = this.mdFile.name;
 			this.outputBox.focus();
-			this.reader.readAsText(this.plik);
-			this.reader.onloadend = this.wczytajTrescPliku.bind(this)
-			this.outputBox.onscroll = this.przewijajSidebar.bind(this);
+			this.reader.readAsText(this.mdFile);
+			this.reader.onloadend = this.loadFileContent.bind(this)
+			this.outputBox.onscroll = this.scrollSidebar.bind(this);
 			
 		},
 		
-		przewijajSidebar: function(e){
+		scrollSidebar: function(e){
 			
 			this.outputSidebar.style.top = -(this.outputBox.scrollTop) + "px";
 			
 		},
 		
-		wczytajTrescPliku: function(e){
+		loadFileContent: function(e){
 			
 			this.outputBox.innerHTML = this.converter.makeHtml( this.reader.result );
 			this.outputBox.scrollTop = 0;
 			
-			this.drukujNumeryLinijek()
+			this.printLineNumbers()
 			this.copyBox.classList.add("copy-button")
-			this.copyButton.onclick = this.kopiujTresc.bind(this);
+			this.copyButton.onclick = this.copyContent.bind(this);
 			
-			this.copyButton.setAttribute('data-original-title', "Kopiuj całą treść do schowka")
-			
-			// setTimeout(function(){ this.copyBox.classList.remove("copy-button") }, 3000)
+			this.copyButton.setAttribute('data-original-title', "copy content to clipboard")
 
 		},
 		
-		kopiujTresc: function(){
+		copyContent: function(){
 			var scrollH = this.outputBox.scrollTop;
 						
 			this.outputBox.select();
 			document.execCommand('copy');
 			
-			jQuery(this.copyButton).attr('data-original-title', "Skopiowane do schowka!")
+			jQuery(this.copyButton).attr('data-original-title', "copied to clipboard!")
 								   .tooltip('update')
 								   .tooltip('show');
 								   
@@ -52,16 +48,16 @@ window.onload = function(){
 		
 		},
 		
-		drukujNumeryLinijek: function(){
+		printLineNumbers: function(){
 			
-			var nrLinijki = 1;
+			var lineNo = 1;
 			
 			for(i = 0; i < this.reader.result.length; i++){			
 				
 				if(this.reader.result.charCodeAt(i) === 10){
 					var div = document.createElement("div");
 
-					div.innerHTML = nrLinijki++ + ":"
+					div.innerHTML = lineNo++ + ":"
 
 					this.outputSidebar.appendChild(div);
 				};
@@ -84,12 +80,12 @@ window.onload = function(){
 			
 			jQuery(function () { $('[data-toggle="tooltip"]').tooltip()})
 			
-			this.fileInput.onchange = this.zaladowanyPlik.bind(this);
+			this.fileInput.onchange = this.loadedFile.bind(this);
 		}
 		
 	};
 	
 	
-	konwerter.init();
+	converter.init();
 	
 };

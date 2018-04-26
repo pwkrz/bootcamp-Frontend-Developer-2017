@@ -76,12 +76,10 @@
 }
 
 .custom-file-control:before{
-  /* content: "Załaduj plik..."; */
   content: attr(data-button);
   z-index: 999;
   cursor: pointer;
 }
 .custom-file-control:after{
-  /* content: "Jeszcze nic nie wybrano."; */
   content: attr(data-text);
 }
