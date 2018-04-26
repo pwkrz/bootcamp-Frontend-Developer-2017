@@ -1,6 +1,11 @@
-# A Node.js-based local network chat application
+# A Node.js and WebSocket-based local network chat application
 
-Assignment: Build a chat application using the HTML5 WebSocket API.
+**Assignment**
+
++ Create a chat that will use a server created using the Node.js platform, as well as the WebSockets protocol, and will enable two-way data transfer.
++ Allow users to provide their nickname. 
++ Implement status display when someone joins or leaves the chat.
++ All sent messages, as well as statuses, should be visible to all connected clients.
 
 ## Used npm packages
 
