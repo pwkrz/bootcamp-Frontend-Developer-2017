@@ -1,0 +1,58 @@
+<div class="row no-gutters justify-content-around">
+    <div class="col-5">
+        <div class="card border-success mb-3" >
+            <div class="card-header">
+                <div class="form-check text-right"><small>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" (change)="card1Hidden = $event.target.checked">
+                        Ukryj
+                    </label>
+                </small></div>
+            </div>
+            <div class="card-body" [hidden]="card1Hidden">
+                <h4 class="card-title">Ukrywanie przy użyciu [hidden]</h4>
+                <p class="card-text">Ustawia właściwość display elementu na "none", ale pozostawia go na stronie. W związku z tym np. nie resetują się wartości pól input. Z drugiej strony element, mimo ukrycia, zajmuje pamięć komputera.</p>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card border-danger mb-3" >
+            <div class="card-header ">
+                <div class="form-check text-right"><small>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" (change)="card2Hidden = $event.target.checked">
+                        Ukryj
+                    </label>
+                </small></div>
+            </div>
+            <div class="card-body" *ngIf="card2Hidden === false">
+                <h4 class="card-title">Ukrywanie przy użyciu *ngIf</h4>
+                <p class="card-text">Usuwa/Wstawia element ze strony lub na stronę. Zaletą jest niezajmowanie pamięci przez niewidoczny lement. Wadą - stan elementu przed usunięciem nie zostaje zapamiętany; można to jednak rozwiązać zapisując jego stan do zmiennej.</p>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

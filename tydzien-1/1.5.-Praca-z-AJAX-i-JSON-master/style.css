@@ -1,0 +1,48 @@
+.container {
+	padding-top: 50px;
+}
+
+.glyphicon-download-alt {
+	content: "\e025";
+	font-size: 18px;
+	margin: auto 10px;
+}
+
+#button {
+	cursor: pointer;
+	margin-bottom: 20px;
+	border: 0;
+}
+
+#button span {
+	position: relative;
+	transition: 0.2s;
+}
+
+#button span:after {
+	font-family: "Glyphicons Halflings";
+	content: "\e025";
+	position: absolute;
+	top: 0px;
+	opacity: 0;
+	right: -4px;
+}
+
+#button:hover span {
+	padding-right: 27px;
+}
+
+#button:hover span:after {
+	transition: 0.2s;
+	right: -8px;
+	opacity: 1;
+}
+
+.btn-primary:focusin {
+    box-shadow: none;
+	background-color: #337ab7;
+}
+
+.list-group {
+	padding-left: 10px;
+}

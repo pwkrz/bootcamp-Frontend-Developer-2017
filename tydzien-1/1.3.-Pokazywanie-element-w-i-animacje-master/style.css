@@ -1,0 +1,59 @@
+#nav {
+	padding-top: 50px;
+	position: relative;
+}
+
+#hamburger  {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 45px;
+	cursor: pointer;
+	border: 1px dashed;
+	padding: 5px;
+}
+
+#hamburger:hover {
+    color: white;
+	background-color: #343a40;
+}
+
+.glyphicon-menu-hamburger {
+    content: "\e236";
+}
+
+.glyphicon-remove {
+	content: "\e014";
+}
+
+/* .visible { */
+	/* display: block;	 */
+/* } */
+
+ul#menu {
+	margin-top: 10px;
+	list-style-type: none;
+	margin-left: -36px;
+	position: absolute;
+	left: 73px;
+	top: 54px;
+	width: 50%;
+	cursor: pointer;
+	display: none;
+}
+
+ul#menu li {
+	padding: 10px 0 10px 20px;	
+	border-bottom: 1px dashed #343a40;
+}
+
+ul#menu li:first-child {	
+	border-top: 1px dashed #343a40;
+}
+
+/* ul#menu li:hover {
+	padding-left: 20px;
+	border-left: 20px solid #343a40;
+	border-top: 1px solid #343a40;
+	border-bottom: 1px solid #343a40;
+	z-index: 1000;
+}*/

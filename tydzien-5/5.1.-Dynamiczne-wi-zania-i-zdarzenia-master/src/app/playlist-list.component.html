@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tytuł</th>
+        <th scope="col" class="text-center">Liczba utworów</th>
+        <th scope="col" class="text-center">Kolor</th>
+      </tr>
+    </thead>
+    <tbody class="p-list-table">
+      <tr *ngFor="let playlist of playlists; let i = index"
+          (mouseenter)="this.hovered = playlist"
+          (mouseleave)="this.hovered = false"
+          [ngStyle]="this.hovered === playlist ? { 'font-size': '130%', 'background-color': '#dfdfdf', 'color': playlist.color } : { 'font-size': '', 'background-color': '', 'color': '' }">
+        <th scope="row">{{ i + 1 }}.</th>
+        <td >{{ playlist.name }}</td>
+        <td class="text-center">{{ playlist.tracks }}</td>
+        <td class="text-center"><input [(ngModel)]="playlist.color" type="color" ></td>
+      </tr>
+    </tbody>
+  </table>
