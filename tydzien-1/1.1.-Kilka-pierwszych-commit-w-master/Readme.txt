@@ -1,1 +1,1 @@
-Przyk³adowy tekst
+Assignment was to create a few initial commits.
