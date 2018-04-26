@@ -2,7 +2,7 @@
 	
 	$(document).ready(function(){
 		
-		var input = $("#pole"),
+		var input = $("#userInput"),
 			button = $("#button"),
 			ul = $("<ul>", {class: "list-group"}),
 			form = $("#form")
@@ -12,7 +12,7 @@
 		input.on("keydown", function(){
 			
 			$(this).removeClass("warning");
-			input.attr("placeholder", "wpisz tekst, który zostanie wstawiony poniżej...");
+			input.attr("placeholder", "Type in anything...");
 			
 			
 		});
@@ -42,7 +42,7 @@
 			} else {
 				
 				input.addClass("warning");
-				input.attr("placeholder", "pole nie może być puste...");
+				input.attr("placeholder", "The input field must contain at least 1 character...");
 				input.val("");
 				
 			}
