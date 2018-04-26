@@ -1,19 +1,19 @@
 window.onload = function(){
 
-function Toggler(selektor){
+function Toggler(selector){
 	
-	var wybraneElementy = document.querySelectorAll(selektor);
+	var selectedElements = document.querySelectorAll(selector);
 	
 	this.getElem = function(i){
 		
-		return wybraneElementy[i]
+		return selectedElements[i]
 		
 	};
 	
 	this.show = function(){
 		
-		for(i=0; i < wybraneElementy.length; i++){
-			wybraneElementy[i].style.display = "block";
+		for(i=0; i < selectedElements.length; i++){
+			selectedElements[i].style.display = "block";
 		}
 		
 		return this
@@ -22,8 +22,8 @@ function Toggler(selektor){
 	
 	this.hide = function(){
 		
-		for(i=0; i < wybraneElementy.length; i++){
-			wybraneElementy[i].style.display = "none";
+		for(i=0; i < selectedElements.length; i++){
+			selectedElements[i].style.display = "none";
 		}
 		
 		return this
@@ -42,15 +42,15 @@ elem.prototype.constructor = elem;
 
 var button = document.querySelector("#button");
 
-var tekstGuzika = button.querySelector("span");
+var buttonText = button.querySelector("span");
 
-button.addEventListener("click", function(e) {	
+button.addEventListener("click", function() {	
 
     if(elem.getElem(0).style.display == "none"){
-		tekstGuzika.textContent = "Ukryj";
+		buttonText.textContent = "Hide";
 		elem.show();
     } else {
-		tekstGuzika.textContent = "Pokaż";
+		buttonText.textContent = "Show";
         elem.hide();
     }
 	

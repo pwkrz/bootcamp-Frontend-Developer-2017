@@ -4,8 +4,6 @@ function EventEmitter() {
 
 };
 
-// EventEmitter.prototype.events = {};
-
 EventEmitter.prototype.on = function(type, fn) {
 
     if(!type || !fn) return;
@@ -39,7 +37,7 @@ Database.prototype.constructor = Database;
 
 Database.prototype.connect = function() {
 
-    // fikcyjne podłączenie do bazy
+    // simulated connection to database
 
     this.emit("connect", this.url);
 
@@ -47,46 +45,46 @@ Database.prototype.connect = function() {
 
 Database.prototype.disconnect = function() {
 
-    // fikcyjne zakończenie połączenia z bazą
+    // simulated disconnection from database
 
     this.emit("disconnect", this.url);
 
 };
 
-// Użycie EventEmittera
+// Create instance of EventEmitter
 var ev = new EventEmitter();
 
 ev.on("hello", function(message) {
-    console.log("Witaj " + message + "!");
+    console.log("Hello " + message + "!");
 });
 
 ev.on("hello", function(message) {
-    console.log("Siema " + message + ".");
+    console.log("Hi there " + message + ".");
 });
 
 ev.on("goodbye", function() {
-    console.log("Do widzenia!");
+    console.log("Goodbye!");
 });
 
 ev.emit("hello", "Marek");
 ev.emit("goodbye");
-ev.emit("custom"); // nic się nie wydarzy
+ev.emit("custom"); // nothing happens
 
-// DO ZROBIENIA!
-// Docelowe użycie klasy Database
-var db = new Database("db://localhost:3000"); // fikcyjny adres
+// TO DO!
+// Example use of the Database class
+var db = new Database("db://localhost:3000"); // fictional address
 
 db.on("connect", function(url) {
-    console.log("Połączenie z bazą pod adresem " + url + " zostało ustanowione.");
+    console.log("Connection to database at " + url + " established.");
 });
 
 db.on("disconnect", function(url) {
-    console.log("Połączenie z bazą pod adresem " + url + " zostało zakończone.");
+    console.log("Connection to database at " + url + " ended.");
 });
 
 db.connect();
 
-// po 5 sekundach rozłączamy się
+// disconnection after 5 seconds
 setTimeout(function() {
     db.disconnect();
 }, 5000);

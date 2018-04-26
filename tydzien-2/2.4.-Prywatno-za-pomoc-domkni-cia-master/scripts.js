@@ -2,25 +2,25 @@ function createData(obj) {
 
     var data = obj;
 	
-	this.set = function(klucz, wart){
+	this.set = function(prop, val){
 		
-		if(!klucz || !wart){
+		if(!prop || !val){
 			
-			var args = prompt('Podaj obie wartości oddzielone spacją')
+			var args = prompt('Provide 2 values separated by a space.')
 			
 			data[args.split(" ")[0]] = args.split(" ")[1]
 									
 		} else {
 			
-			data[klucz] = wart;
+			data[prop] = val;
 			
 		}
 		
 	}
 	
-	this.get = function(klucz){
+	this.get = function(prop){
 		
-		return data[klucz]
+		return data[prop]
 		
 	}
 
@@ -29,7 +29,7 @@ function createData(obj) {
 var data = new createData({});
 
 data.set("name", "Tomek");
-data.set("nazwisko", "Osobowski");
+data.set("lastName", "Osobowski");
 
 console.log( data.get("name") );
-console.log( data.get("nazwisko") );
+console.log( data.get("lastName") );

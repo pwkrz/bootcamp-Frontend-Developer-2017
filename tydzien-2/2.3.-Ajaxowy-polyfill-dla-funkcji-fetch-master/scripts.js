@@ -1,4 +1,4 @@
-function aport(url, sukces, blad){
+function fetchIt(url, onSuccess, onError){
 	
 	if (window.XMLHttpRequest) {
 		
@@ -10,15 +10,15 @@ function aport(url, sukces, blad){
 			
 			if(xhr.status === 200 && xhr.readyState === 4){
 				
-				sukces(xhr.response);
+				onSuccess(xhr.response);
 				
 			} else if(xhr.status >= 300 && xhr.readyState === 4) { 
 			
-				blad(xhr) 
+				onError(xhr) 
 				
 			} else { 
 				
-				console.log("Przetwarzanie...")
+				console.log("Processing...")
 			
 			};
 			
@@ -30,10 +30,10 @@ function aport(url, sukces, blad){
 	
 };
 
-aport("https://jsonplaceholder.typicode.com/userss", function(data) {
-console.log("Sukces");
-console.log(data);
-}, function(err) {
-console.log("Wystąpił błąd!");
-console.log(err);
+fetchIt("https://jsonplaceholder.typicode.com/users", function(data) {
+		console.log("Success");
+		console.log(data);
+	}, function(err) {
+		console.log("Error occurred!");
+		console.log(err);
 });
