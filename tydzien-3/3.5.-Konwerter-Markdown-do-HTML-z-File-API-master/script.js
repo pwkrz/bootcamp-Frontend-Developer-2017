@@ -102,8 +102,6 @@ window.onload = function(){
 
 					}
 
-					console.log(widthCounter)
-
 					this.outputSidebar.appendChild(div);
 
 				}
