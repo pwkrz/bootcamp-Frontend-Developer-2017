@@ -1,6 +1,3 @@
-// dodawać prefiksy (np. -webkit-) czy odświeżać widok w przeglądarce. 
-// utwórz zadanie build, które pozwoli zminifikować i połączyć wiele plików JavaScript w jeden
-
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const bs = require('browser-sync').create();
@@ -63,7 +60,7 @@ gulp.task("dist:clean", function(){
 gulp.task("dist:html", function(){
 	
 	return gulp.src("./src/index.html")
-		// .pipe( plumber() )
+		.pipe( plumber() )
 		.pipe( sourcemaps.init() )
 		.pipe( useref() )
 		.pipe( gulpIf( '*.js', uglify() ) )
@@ -80,24 +77,6 @@ gulp.task("dist:images", function(){
         .pipe(gulp.dest('dist/'))
 	
 })
-
-// gulp.task("dist:htmlmin", function(){
-	
-	// return gulp.src("dist/index.html")
-		// .pipe( htmlmin({collapseWhitespace: true}) )
-		// .pipe( gulp.dest('dist/') )
-	
-// })
-
-// gulp.task("dist:js", function(){
-	
-	// gulp.src( 'src/js/*.js' )
-		// .pipe( sourcemaps.init() )
-        // .pipe( uglify({'scripts.min.js', {newLine: '\r\n'}}) )
-		// .pipe( sourcemaps.write() )
-		// .pipe( gulp.dest('./dist') )
-	
-// })
 
 gulp.task("build:sequence", function(cb){
 	
