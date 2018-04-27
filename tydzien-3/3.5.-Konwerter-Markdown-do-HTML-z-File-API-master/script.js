@@ -2,7 +2,7 @@ window.onload = function(){
 	
 	var converter = {
 		
-		loadedFile: function(e){
+		loadedFile: function(){
 			
 			this.mdFile = this.fileInput.files[0];
 			
@@ -14,18 +14,37 @@ window.onload = function(){
 			
 		},
 		
-		scrollSidebar: function(e){
+		scrollSidebar: function(){
 			
 			this.outputSidebar.style.top = -(this.outputBox.scrollTop) + "px";
 			
 		},
+
+		getOutputWidthInEx: function(){
+
+			var span = document.createElement("span"),
+				outputWidth = outputBox.getBoundingClientRect().width - parseFloat( window.getComputedStyle(outputBox).paddingLeft );
+
+			span.style.cssText = "opacity: 0; position: absolute; z-index: -1; font-family: Courier";
+
+			span.innerText = "x";
+
+			document.body.appendChild(span);
+
+			var ratio = outputWidth / parseFloat(window.getComputedStyle(span).width);
+
+			document.body.removeChild(span);
+
+			return ratio;
+			
+		},
 		
-		loadFileContent: function(e){
+		loadFileContent: function(){
 			
 			this.outputBox.innerHTML = this.converter.makeHtml( this.reader.result );
 			this.outputBox.scrollTop = 0;
 			
-			this.printLineNumbers()
+			this.printLineNumbers();
 			this.copyBox.classList.add("copy-button")
 			this.copyButton.onclick = this.copyContent.bind(this);
 			
@@ -50,18 +69,33 @@ window.onload = function(){
 		
 		printLineNumbers: function(){
 			
-			var lineNo = 1;
+			var lineNo = 1,
+				outputWidthInEx = Math.floor( this.getOutputWidthInEx() ),
+				widthCounter = outputWidthInEx,
+				spacesArr = [];
+
+			this.outputSidebar.innerHTML = "";
 			
-			for(i = 0; i < this.reader.result.length; i++){			
+			for(var i = 0; i <= this.reader.result.length; i++){
+
+				if( /\s/.test(this.reader.result.charAt(i)) ) spacesArr.push(i % outputWidthInEx);
 				
-				if(this.reader.result.charCodeAt(i) === 10){
+				widthCounter--
+
+				if( widthCounter === 0 || this.reader.result.charCodeAt(i) === 10 || i === this.reader.result.length ){
+
 					var div = document.createElement("div");
 
-					div.innerHTML = lineNo++ + ":"
+					div.innerHTML = widthCounter === 0 ? "&nbsp;" : lineNo++ + ":";
 
 					this.outputSidebar.appendChild(div);
-				};
+
+					widthCounter = widthCounter === 0 ? Math.max.apply(Math, spacesArr) : outputWidthInEx;
+
+				}
+
 			};
+
 		},
 		
 		init: function(){
