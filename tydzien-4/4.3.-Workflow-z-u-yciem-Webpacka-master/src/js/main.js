@@ -1,11 +1,16 @@
-import "../sass/main.scss"
-// import {setPosition, stopPropag, hideMenu} from "./menu-events";
 import $ from "jquery";
 import * as bxSlider from "bxslider";
-try { require( "../uploads/"+/\*.*$/ ) }
-catch(err){ console.log( `Funkcja używana do importu obrazków z folderu "Uploads" - ${err}` ) }
+// import {setPosition, stopPropag, hideMenu} from "./menu-events";
+try {
+  require( "../sass/main.scss" );
+  require( "../uploads/"+/\*.*$/ );
+} catch(err){
+  console.log( `sass/main.scss and content of /uploads are imported for webpack purposes: ${err}` )
+}
 
 $(function(){
-    $('.bxslider').bxSlider();
+    $('.bxslider').bxSlider({
+      controls: false
+    });
   });
 

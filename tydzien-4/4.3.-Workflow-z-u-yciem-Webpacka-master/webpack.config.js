@@ -43,10 +43,6 @@ module.exports = function(env){
 							context: "src/",
 							name: "[path][name].[ext]"
 						  }
-						// options: {
-							// context: "src/",
-							// name: '[path][name].[ext]'
-						// }  
 					  }
 					]
 				},
