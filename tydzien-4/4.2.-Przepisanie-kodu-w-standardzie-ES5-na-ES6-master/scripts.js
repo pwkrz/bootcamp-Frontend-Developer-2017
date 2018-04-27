@@ -43,29 +43,29 @@ class Database extends EventEmitter {
 var ev = new EventEmitter();
 
 ev.on("hello", function(message) {
-    console.log(`Witaj ${message}!`);
+    console.log(`Welcome ${message}!`);
 });
 
 ev.on("hello", function(message) {
-    console.log(`Siema ${message}.`);
+    console.log(`Hi there ${message}.`);
 });
 
 ev.on("goodbye", function() {
-    console.log("Do widzenia!");
+    console.log("Goodbye!");
 });
 
 ev.emit("hello", "Marek");
 ev.emit("goodbye");
-ev.emit("custom"); // nic się nie wydarzy
+ev.emit("custom"); // nothing happens
 
-var db = new Database("db://localhost:3000"); // fikcyjny adres
+var db = new Database("db://localhost:3000"); // fictional address
 
 db.on("connect", function(url) {
-    console.log(`Połączenie z bazą pod adresem ${url} zostało ustanowione.`);
+    console.log(`Connection to database at ${url} established.`);
 });
 
 db.on("disconnect", function(url) {
-    console.log(`Połączenie z bazą pod adresem ${url} zostało zakończone.`);
+    console.log(`Connection to database at ${url} ended.`);
 });
 
 db.connect();
