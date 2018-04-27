@@ -17,9 +17,7 @@ class EventEmitter {
 
 		if(!fns || !fns.length) return;
 
-		for(let fn of fns) {
-			fn(data);
-		}
+		fns.forEach( fn => fn(data) );
 	}
 }
 
@@ -42,17 +40,11 @@ class Database extends EventEmitter {
 
 var ev = new EventEmitter();
 
-ev.on("hello", function(message) {
-    console.log(`Welcome ${message}!`);
-});
+ev.on("hello", (message) => console.log(`Welcome ${message}!`));
 
-ev.on("hello", function(message) {
-    console.log(`Hi there ${message}.`);
-});
+ev.on("hello", (message) => console.log(`Hi there ${message}.`));
 
-ev.on("goodbye", function() {
-    console.log("Goodbye!");
-});
+ev.on("goodbye", () => console.log("Goodbye!"));
 
 ev.emit("hello", "Marek");
 ev.emit("goodbye");
@@ -60,16 +52,10 @@ ev.emit("custom"); // nothing happens
 
 var db = new Database("db://localhost:3000"); // fictional address
 
-db.on("connect", function(url) {
-    console.log(`Connection to database at ${url} established.`);
-});
+db.on("connect", (url) => console.log(`Connection to database at ${url} established.`));
 
-db.on("disconnect", function(url) {
-    console.log(`Connection to database at ${url} ended.`);
-});
+db.on("disconnect", (url) => console.log(`Connection to database at ${url} ended.`));
 
 db.connect();
 
-setTimeout(function() {
-    db.disconnect();
-}, 5000);
+setTimeout( () => db.disconnect(), 5000 );
