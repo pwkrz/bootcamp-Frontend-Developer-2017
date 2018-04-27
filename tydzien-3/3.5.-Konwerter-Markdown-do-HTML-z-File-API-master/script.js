@@ -86,11 +86,25 @@ window.onload = function(){
 
 					var div = document.createElement("div");
 
-					div.innerHTML = widthCounter === 0 ? "&nbsp;" : lineNo++ + ":";
+					if(widthCounter === 0){
+
+						div.innerHTML = "&nbsp;";
+
+						widthCounter = Math.max.apply(Math, spacesArr);
+
+					} else {
+
+						div.innerHTML = lineNo++ + ":";
+
+						widthCounter = outputWidthInEx;
+
+						spacesArr = [];
+
+					}
+
+					console.log(widthCounter)
 
 					this.outputSidebar.appendChild(div);
-
-					widthCounter = widthCounter === 0 ? Math.max.apply(Math, spacesArr) : outputWidthInEx;
 
 				}
 
