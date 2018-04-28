@@ -246,8 +246,6 @@ class Brick extends Sprite {
         this.sprite.classList.remove("hard-brick")
 
         this.show();
-
-        console.log(this.isVisible)
 	}
 
 }
@@ -277,8 +275,7 @@ class Game {
     gameState: GameState;
     ball: Ball;
     paddle: Paddle;
-    bricks: Array<Brick> = [];
-    hardBricks: Array<HardBrick> = [];
+    bricks: Array<Brick>;
 
     keyMap = {};
 
@@ -317,21 +314,22 @@ class Game {
 
     makeBricks(){
 
-        for (let i = 0; i < this.brickDIVs.length; i++) {
+        this.bricks = Array.prototype.map.call(this.brickDIVs, brickDIV => {
 
             let hardGate: Boolean = Math.random() > .7;
 
+            brickDIV.style.cssText = "";
+
             if(hardGate){
 
-                this.bricks[i] = new HardBrick(<HTMLElement>this.brickDIVs[i]);
+                return new HardBrick(<HTMLElement>brickDIV);
 
             } else {
 
-                this.bricks[i] = new Brick(<HTMLElement>this.brickDIVs[i]);
+                return new Brick(<HTMLElement>brickDIV);
 
             }
-        }
-
+        });
     }
 
     newGame() {
@@ -369,11 +367,6 @@ class Game {
     run() {
         document.addEventListener('keyup', (e) => this.keyMap[e.keyCode] = false);
         document.addEventListener('keydown', (e) => this.keyMap[e.keyCode] = true);
-		
-		for (let hBrick of this.hardBricks) {
-			console.log(hBrick)
-			
-		}
 
        setInterval(() => {
             if (this.gameState !== GameState.Running) {
@@ -401,7 +394,9 @@ class Game {
 
             for (let brick of this.bricks) {
                 let wasHit = false;
-
+                if(brick.sprite.classList.contains("col-7") && brick.sprite.classList.contains("row-7")){
+                    console.log(brick.isVisible)
+                }
                 switch (brick.checkCollision(newBallPosition)) {
                     case (Side.Left):
                     case (Side.Right):
@@ -413,7 +408,7 @@ class Game {
                     case (Side.Bottom):                    
                         this.ball.bounceHorizontal();
                         wasHit = true;
-                        break;
+                        // break;
                 }
 
                 if (wasHit) {
@@ -423,39 +418,6 @@ class Game {
                     break;
                 }
             }
-			
-			// for (let hBrick of this.hardBricks) {
-	
-				
-
-            //     switch (hBrick.checkCollision(newBallPosition)) {
-					
-            //         case (Side.Left):						
-            //         case (Side.Right):
-            //             this.ball.bounceVertical();
-			// 			this.score += 20;
-            //             hBrick.hitCount++;
-            //             break;                        
-
-            //         case (Side.Top):						
-            //         case (Side.Bottom):                    
-            //             this.ball.bounceHorizontal();
-			// 			this.score += 20;
-            //             hBrick.hitCount++;
-
-            //     }
-
-            //     if (hBrick.hitCount === 1) {
-            //         hBrick.sprite.style.opacity = "0.5";
-			// 		this.scoreLabel.innerText = '' + this.score;
-			// 	}	
-				
-			// 	if (hBrick.hitCount === 2) {
-			// 		hBrick.hide()
-                    
-            //         this.scoreLabel.innerText = '' + this.score;
-            //     }
-            // }
 
             if (this.paddle.checkCollision(newBallPosition)) {
                 this.ball.bounceWithAngle(this.paddle.calculateHitAngle(this.ball.centerX(), this.ball.radius));
