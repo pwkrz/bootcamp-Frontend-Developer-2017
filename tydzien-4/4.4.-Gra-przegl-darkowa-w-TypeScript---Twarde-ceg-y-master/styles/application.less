@@ -81,34 +81,9 @@ h3 em {
 
     .brick-row-loop(@bricks-rows);
     .brick-col-loop(@bricks-in-row);
-  }
-  
-  .hard-brick {
-    display: block;
-    position: absolute;
 
-    top: 20px;
-
-    height: @brick-height;
-    width: @brick-width;
-
-    background-color: #0a0;
-
-    .brick-col-loop (@i) when (@i > 0) {
-      &.col-@{i} {
-        left: @brick-gap * @i + @brick-width * (@i - 1);
-      }
-      .brick-col-loop(@i - 1);
+    &.hard-brick {
+      background-color: #0a0;
     }
-
-    .brick-row-loop (@i) when (@i > 0) {
-      &.row-@{i} {
-        top: @brick-gap * @i + @brick-height * (@i - 1);
-      }
-      .brick-row-loop(@i - 1);
-    }
-
-    .brick-row-loop(@bricks-rows);
-    .brick-col-loop(@bricks-in-row);
   }
 }
