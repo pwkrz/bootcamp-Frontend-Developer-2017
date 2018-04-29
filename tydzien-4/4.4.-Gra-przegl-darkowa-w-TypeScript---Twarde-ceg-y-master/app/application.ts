@@ -239,6 +239,8 @@ class Paddle extends Sprite {
 class Brick extends Sprite {
 
     public hitCount: number = 0;
+    public hitResistance: number = 1;
+    public bustPoints: number = 20;
 
     constructor(brick: HTMLElement){
         super(brick);
@@ -246,11 +248,34 @@ class Brick extends Sprite {
         this.sprite.classList.remove("hard-brick")
 
         this.show();
-	}
+    }
+    setCurrOpacity () {
+        let brickOpacity: number = Number( this.sprite.style.opacity ) || 1;
+        this.sprite.style.opacity = ( brickOpacity - 1 / this.hitResistance ).toString();
 
+    }
+    handleHit () {
+        this.hitCount += 1;
+        this.setCurrOpacity();
+    }
+    isBusted(): boolean {
+        return this.hitCount === this.hitResistance;
+    }
+    checkCollision (anotherRect: Rect) {
+        let side: Side = super.checkCollision(anotherRect);
+
+        if(side != Side.None){
+            this.handleHit();
+        }
+
+        return side;
+    }
 }
 
 class HardBrick extends Brick {
+
+    public hitResistance: number = 2;
+    public bustPoints: number = 50;
 	
 	constructor(brick: HTMLElement){
         super(brick);
@@ -393,27 +418,25 @@ class Game {
             }     
 
             for (let brick of this.bricks) {
-                let wasHit = false;
-                if(brick.sprite.classList.contains("col-7") && brick.sprite.classList.contains("row-7")){
-                    console.log(brick.isVisible)
-                }
+
+                let isBusted: boolean = false;
+    
                 switch (brick.checkCollision(newBallPosition)) {
                     case (Side.Left):
                     case (Side.Right):
                         this.ball.bounceVertical();
-                        wasHit = true;
+                        isBusted = brick.isBusted();
                         break;
-
                     case (Side.Top):
                     case (Side.Bottom):                    
                         this.ball.bounceHorizontal();
-                        wasHit = true;
-                        // break;
+                        isBusted = brick.isBusted();
+                        break;
                 }
 
-                if (wasHit) {
+                if (isBusted) {
                     brick.hide();
-                    this.score += 20;
+                    this.score += brick.bustPoints;
                     this.scoreLabel.innerText = '' + this.score;
                     break;
                 }
