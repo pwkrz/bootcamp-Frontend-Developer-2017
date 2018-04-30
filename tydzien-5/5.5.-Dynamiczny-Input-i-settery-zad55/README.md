@@ -1,12 +1,9 @@
-# Angular2
+# Dynamic @Input and setters
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
+In JavaScript, you can define the field of the object as a function. These are so-called
+getters and setters.
 
-## 4. Usuwanie playlist i bąbelkowanie zdarzeń
-
-Dodaj do każdego elementu listy playlist przycisk usuwania. Możesz użyć symbolu &times;
-który wyświetli w HTML znak “X”. Niech kliknięcie w przycisk usuwania usunie playlistę z
-listy playlist, ale w taki sposób, by kliknięcie na element listy nadal wybierało tę listę do
-edycji. Jak zobaczysz korzystanie z Angulara nie zwalnia ze znajomości działania DOM i
-JavaScript. Korzystając ze zdarzeń w Angularze, korzystamy tak naprawdę ze zdarzeń
-przeglądarce. Jako podpowiedź dodam tylko - pamiętasz o event.preventDefault() ?
++ Use a setter instead of a class field in such a way that each time a new playlist is sent to the form component via `@Input('playlist')` a method is called that creates a copy of the playlist (using `Object.assign({})`).
++ Owing to this, editing the playlist fields will not change the original version of the playlists.
++ Clicking the save button should send the modified playlist to the parent component, which should update the corresponding item in the list.
++ Hint: use `@Output()` and `EventEmitter`. You can add an "id" field to playlists to make it easier to find the right item on the list.

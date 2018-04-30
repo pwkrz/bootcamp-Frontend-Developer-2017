@@ -1,12 +1,7 @@
-# Angular2
+# Deleting playlists and bubbling events
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
-
-## 4. Usuwanie playlist i bąbelkowanie zdarzeń
-
-Dodaj do każdego elementu listy playlist przycisk usuwania. Możesz użyć symbolu &times;
-który wyświetli w HTML znak “X”. Niech kliknięcie w przycisk usuwania usunie playlistę z
-listy playlist, ale w taki sposób, by kliknięcie na element listy nadal wybierało tę listę do
-edycji. Jak zobaczysz korzystanie z Angulara nie zwalnia ze znajomości działania DOM i
-JavaScript. Korzystając ze zdarzeń w Angularze, korzystamy tak naprawdę ze zdarzeń
-przeglądarce. Jako podpowiedź dodam tylko - pamiętasz o event.preventDefault() ?
++ Add a delete button to each playlist list item. You can use the `&times;` symbol
+which will display the "X" in HTML.
++ Clicking the delete button should delete the playlist from the playlist list
++ Clicking on the list item should still select a list for editing.
++ Tip: As you will see, use of Angular does not absolve you from the knowledge of DOM and Javascript. When using events in Angular, we really use browser events. Remember about `event.preventDefault()`?
