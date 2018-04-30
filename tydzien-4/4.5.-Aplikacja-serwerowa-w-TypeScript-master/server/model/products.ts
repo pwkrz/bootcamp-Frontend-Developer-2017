@@ -1,42 +1,24 @@
-// class Products extends baseList
+import {BaseList} from "./baseModels/list";
+import {Product} from "./product";
 
-import * as Product from "./product";
-
-export class Products {
-	private productsList: Array<Product.Product>;
+export class Products extends BaseList {
 	
-	constructor(products: Array<Product.Product> = []){
-		this.productsList = new Array<Product.Product>();
-		
-		products.forEach( product => this.productsList.push(product) )
+	constructor(products: Array<Product> = []){
+		super(products)
 	}
 	
-	public list(): Array<Product.Product> {
-		return this.productsList
-	}
-
-	public getMaxId() {
-        let productIds : Array<number> = this.productsList.map(
-            (product) => product.getId()
-		);
-
-        return Math.max(...productIds, 0);
-    }
-	
-	public add(productName: string, quantity: number): Array<Product.Product> {
+	public add(productName: string, quantity: number): Array<Product> {
 
 		let productId: number = this.getMaxId() + 1;
-		
-		let product = new Product.Product(productId, productName, quantity)
-		
-		this.productsList.push(product);
-		
-		return this.productsList;
+
+		this.list.push( new Product(productId, productName, quantity) );
+
+		return this.list;
 	}
 
 	public modifyQuantity(productName: string, quantity: number) {
 		
-		for(let product of this.productsList){
+		for(let product of this.list){
 			
 			if( product.getName() === productName ){
                 product.updateQuantity( quantity )
@@ -44,32 +26,5 @@ export class Products {
                 if( product.getQuantity() < 1 ) { this.delete(productName) }
             }
         }
-	}
-	
-	public fetch(productId: number): Product.Product {
-		return productId && this.productsList.filter( 
-			(val: Product.Product) => val.getId() === productId
-		).shift();
-	}
-	
-	public find(product: string): Product.Product {
-		return product && this.productsList.filter( 
-			(val: Product.Product) => ( val.getId() === parseInt(product)
-				|| val.getName().toLowerCase() === product.toLowerCase() )
-		).shift();
-	}
-	
-	public delete(product: string): Boolean {
-		let deleted = false;
-		
-		this.productsList = this.productsList.filter( function(val: Product.Product){
-			deleted = ( val.getId() === parseInt(product) || val.getName().toLowerCase() === product.toLowerCase() )
-			return ( val.getId() !== parseInt(product) && val.getName().toLowerCase() !== product.toLowerCase() )
-		} );
-		
-		return deleted;
-	}
-	
-	
-	
+	}	
 }

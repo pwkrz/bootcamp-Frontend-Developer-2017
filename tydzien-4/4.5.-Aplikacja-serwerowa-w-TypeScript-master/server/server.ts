@@ -35,7 +35,7 @@ export class Server {
 
     startServer() {
         this.app.listen(3000, function () {
-            console.log("Server listening on port 3000");
+            console.log("\nServer listening on port 3000");
         });
     }
 }

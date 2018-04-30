@@ -2,57 +2,27 @@ import {BaseList} from "./baseModels/list";
 import {Customer} from "./customer";
 
 export class Customers extends BaseList {
-	private customerList: Array<Customer>;
+	// private customerList: Array<Customer>;
 	
 	constructor(customers: Array<Customer> = []){
-		super();
-		this.customerList = new Array<Customer>();
+		super(customers);
+		// this.customerList = new Array<Customer>();
 		
-		customers.forEach( customer => this.customerList.push(customer) )
-	}
-	
-	public list(): Array<Customer> {
-		return this.customerList
+		// customers.forEach( customer => this.customerList.push(customer) )
 	}
 	
 	public add(customerName: string, email: string): Array<Customer> {
-		let customerIds: Array<number> = this.customerList.map( cust => cust.getId() )
-		let customerId: number = Math.max(...customerIds) + 1;
 		
-		let customer = new Customer(customerId, customerName, email)
+		let customerId: number = this.getMaxId() + 1;
 		
-		this.customerList.push(customer);
+		this.list.push( new Customer(customerId, customerName, email) );
 		
-		return this.customerList;
+		return this.list;
 	}
 
 	public modifyemail(customerName: string, newEmail: string) {
-        for(let customer of this.customerList){
+        for(let customer of this.list){
             if(customerName === customer.name) { customer.setEmail(newEmail) }
         }
     }
-	
-	public fetch(customerId: number): Customer {
-		return customerId && this.customerList.filter( 
-			(val: Customer) => val.getId() === customerId
-		).shift();
-	}
-	
-	public find(customer: string): Customer {
-		return customer && this.customerList.filter( 
-			(val: Customer) => ( val.getId() === parseInt(customer)
-				|| val.getName().toLowerCase() === customer.toLowerCase() )
-		).shift();
-	}
-	
-	public delete(customerId: number): Boolean {
-		let deleted = false;
-		
-		this.customerList = this.customerList.filter( function(val: Customer){
-			deleted = val.getId() === customerId
-			return val.getId() !== customerId
-		} );
-		
-		return deleted;
-	}
 }

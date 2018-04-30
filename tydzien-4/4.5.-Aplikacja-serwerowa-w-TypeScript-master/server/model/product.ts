@@ -1,9 +1,13 @@
 import {BaseItem} from './baseModels/item';
 
 export class Product extends BaseItem {
+
+    private quantity: number = 0;
 	
-    constructor(id: number, public name: string, public quantity: number = 0) {
+    constructor(id: number, name: string, quantity: number = 0) {
         super(id, name)
+
+        this.quantity = quantity;
     }
     
     public getQuantity(){

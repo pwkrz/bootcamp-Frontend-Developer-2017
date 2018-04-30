@@ -40,17 +40,23 @@ export class Gulpfile {
     syncServer(){
         var stream = nodemon({
                        script: './dist/server/' // run ES5 code
-                    //  , verbose: true
                      , watch: './server' // watch ES2015 code
                      , ext: 'ts' // watch ES2015 code
                      , ignore: ['tsconfig.json']
                      , tasks: ['build:server'] // compile synchronously onChange
                      })        
-        // .on("start", function(){
-        //     browserSync.init({
-        //         proxy: "localhost:3000"
-        //     })
-        // })
+      
+        return stream
+      }
+
+    @Task("dev:server")
+    syncServer(){
+        var stream = nodemon({
+                       exec: 'ts-node ./server/index.ts' // run ES5 code
+                     , watch: './server' // watch ES2015 code
+                     , ext: 'ts' // watch ES2015 code
+                     , ignore: ['*.spec.ts']
+                     })        
       
         return stream
       }

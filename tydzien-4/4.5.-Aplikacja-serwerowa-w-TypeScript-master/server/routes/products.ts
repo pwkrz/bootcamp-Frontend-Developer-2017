@@ -31,14 +31,12 @@ export class Products {
     }
 
     public index(req: express.Request, res: express.Response) {
-        res.json(this.productList.list());
+        res.json(this.productList.getList());
     }
 	
 	public create(req: express.Request, res: express.Response) {
-        let productName: string = req.body.product_name;
+        let productName: string = req.body.name;
         let quantity: number = parseInt(req.body.quantity) || 0;
-		
-		console.log(req.body.product_name)
 		
 		if(!productName){
 			res.status(500).send("Product name not found!")
@@ -52,14 +50,14 @@ export class Products {
 		let productId: number = parseInt( req.params.product_id );
 		let product: Product.Product = this.productList.fetch(productId)
 		
-		let productName: string = req.body.product_name;
+		let productName: string = req.body.name;
 		let quantity: number = parseInt(req.body.quantity)
 	
 		if(!product){
 			res.status(404).send("Not found!")
 			return
 		}
-		
+
 		if(productName !== undefined){
 			product.setName(productName)
 		}
@@ -74,11 +72,11 @@ export class Products {
 	public find(req: express.Request, res: express.Response) {
         let productQuery: string = req.params.product;
 		
-		let product: Product.Product = this.productList.find(productQuery)
+		let product: Array<Product.Product> = this.productList.find(productQuery)
 		
-		if(!product){
-			res.status(404).send("Not found!")
-			return
+		if(!product.length){
+			res.status(404).send("Not found!");
+			return;
 		}
 		
 		res.json(product)

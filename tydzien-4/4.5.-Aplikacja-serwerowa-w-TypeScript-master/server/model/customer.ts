@@ -1,16 +1,16 @@
-// Listowanie, pobieranie 1, tworzenie, zmiana, usuwanie + getProp("email")
-// import * as ProductModel from './product';
 import {Products} from './products';
 import {Product} from './product';
-import {baseItem} from './baseModels/item';
+import {BaseItem} from './baseModels/item';
 
-export class Customer extends baseItem {
-    private ownedProducts : Products
+export class Customer extends BaseItem {
+    private ownedProducts : Products;
+    private email : string;
 
-    constructor(id : number, public name : string, public email: string) {
+    constructor(id : number, name : string, email: string) {
         super(id, name)
  
         this.ownedProducts = new Products();
+        this.email = email;
     }
     
     public getEmail() {
@@ -22,9 +22,8 @@ export class Customer extends baseItem {
     }
 
     public addProducts(productName: string, quantity: number) {
-        
-        this.ownedProducts.add(productName, quantity)
 
+        this.ownedProducts.add(productName, quantity)
     }
 
     public updateProdQuantity(productName: string, quantity: number) {
@@ -39,11 +38,12 @@ export class Customer extends baseItem {
 
     }
 
-    public getAllProducts() : Array<Product> {
-        return this.ownedProducts.list();
+    public getAllProducts() {
+
+        return this.ownedProducts.getList();
     }
 
-    public getProduct(productQuery: string): Product {
+    public getProduct(productQuery: string) {
         
         return this.ownedProducts.find(productQuery)
 

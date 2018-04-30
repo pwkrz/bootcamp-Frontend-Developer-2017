@@ -30,16 +30,10 @@ export class Customers {
 		this.customerList = new CustomerList([
 			new Customer(1, "Jan Testowy", "jan@test.owy"),
 		]);
-		
-		console.log(this.customerList)
-		
-        // this.customerList.push(new Customer(1, "Pierwszy produkt", 1))
-        // this.customerList.push(new Customer(2, "Drugi produkt", 21))
-        // this.customerList.push(new Customer(3, "Trzeci produkt"))
     }
 
     public index(req: express.Request, res: express.Response) {
-        res.json(this.customerList.list());
+        res.json(this.customerList.getList());
     }
 	
 	public create(req: express.Request, res: express.Response) {
@@ -82,14 +76,14 @@ export class Customers {
 	public find(req: express.Request, res: express.Response) {
         let customerQuery: string = req.params.customer;
 		
-		let customer: Customer = this.customerList.find(customerQuery)
+		let customerArr: Array<Customer> = this.customerList.find(customerQuery);
 		
-		if(!customer){
+		if(!customerArr.length){
 			res.status(404).send("Not found!")
 			return
 		}
 		
-		res.json(customer)
+		res.json(customerArr)
     }
 	
 	public delete(req: express.Request, res: express.Response) {
@@ -139,8 +133,8 @@ export class Customers {
 		let customer: Customer = this.customerList.fetch(customerId)
 		
 		let product: string = req.body.product;
-		let quantity: number = parseInt(req.body.quant);
-	
+		let quantity: number = parseInt(req.body.quantity);
+
 		if(!customer){
 			res.status(404).send("Not found!")
 			return
@@ -148,11 +142,11 @@ export class Customers {
 		// console.log(ProductsInStore)
 		// if(product in ProductsInStore){
 
-			if( customer.getProduct(product) ){
-				customer.updateProdQuantity(product, quantity)
-			} else {
-				customer.addProducts(product, quantity)
-			}
+		if( customer.getProduct(product).length ){
+			customer.updateProdQuantity(product, quantity)
+		} else {
+			customer.addProducts(product, quantity)
+		}
 
 			
 		// }
