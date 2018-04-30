@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp",
+    "dev": "gulp dev:server",
     "dist": "node dist/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1  && node ./dist/server/index.js"
   },
