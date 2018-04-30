@@ -12,7 +12,7 @@ export class Index {
     }
 
     public index(req: express.Request, res: express.Response) {
-        res.send("Cokolwiek!");
+        res.send("Use a REST API client to request resources. Documentation comming soon!");
     }
 
 }

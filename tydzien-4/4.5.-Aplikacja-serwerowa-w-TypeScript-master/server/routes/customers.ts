@@ -28,7 +28,7 @@ export class Customers {
 
     constructor(){
 		this.customerList = new CustomerList([
-			new Customer(1, "Jan Testowy", "jan@test.owy"),
+			new Customer(1, "Werner Smith", "werner@trinity.com"),
 		]);
     }
 

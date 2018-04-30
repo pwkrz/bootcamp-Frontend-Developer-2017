@@ -33,7 +33,7 @@ export class BaseList {
 
         return Math.max(...indexes, 0);
     }
-
+    // To do?
     // public add(productName: string, quantity: number): Array<Product.Product> {
 
 	// 	let productId: number = this.getMaxId() + 1;
