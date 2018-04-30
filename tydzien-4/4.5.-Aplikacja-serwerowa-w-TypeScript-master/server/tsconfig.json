@@ -6,10 +6,9 @@
         "noEmitOnError": true,
         "noImplicitAny": true,
         "experimentalDecorators": true
-    //     "outDir": "/",
-    //     "rootDir": "/"
-    }
-    // "include": [
-    //     "*.ts"
-    // ],
+//     "outDir": "/",
+//     "rootDir": "/"
 }
+// "include": [
+//     "*.ts"
+// ],

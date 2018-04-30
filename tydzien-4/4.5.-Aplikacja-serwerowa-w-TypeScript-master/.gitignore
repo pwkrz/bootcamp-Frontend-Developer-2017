@@ -37,4 +37,8 @@ dist
 # Optional REPL history
 .node_repl_history
 
+# Compiled files in /server/
+server/**/*.js
+server/**/*.js.map
+
 *._ts

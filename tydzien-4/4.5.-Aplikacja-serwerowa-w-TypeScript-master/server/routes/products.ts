@@ -24,16 +24,10 @@ export class Products {
 
     constructor(){
 		this.productList = new ProductsModel.Products([
-			new Product.Product(1, "Pierwszy produkt", 1),
-			new Product.Product(2, "Drugi produkt", 21),
-			new Product.Product(3, "Trzeci produkt")
+			new Product.Product(1, "First product", 1),
+			new Product.Product(2, "Second product", 21),
+			new Product.Product(3, "Third product")
 		]);
-		
-		console.log(this.productList)
-		
-        // this.productList.push(new Product.Product(1, "Pierwszy produkt", 1))
-        // this.productList.push(new Product.Product(2, "Drugi produkt", 21))
-        // this.productList.push(new Product.Product(3, "Trzeci produkt"))
     }
 
     public index(req: express.Request, res: express.Response) {

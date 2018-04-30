@@ -1,11 +1,11 @@
-// class Customers extends baseList
-
+import {BaseList} from "./baseModels/list";
 import {Customer} from "./customer";
 
-export class Customers {
+export class Customers extends BaseList {
 	private customerList: Array<Customer>;
 	
 	constructor(customers: Array<Customer> = []){
+		super();
 		this.customerList = new Array<Customer>();
 		
 		customers.forEach( customer => this.customerList.push(customer) )

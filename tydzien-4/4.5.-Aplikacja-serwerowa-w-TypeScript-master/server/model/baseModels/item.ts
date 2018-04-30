@@ -1,6 +1,6 @@
 // getProp(propName: string){}
 
-export class baseModel {
+export class BaseItem {
 	private id: number;
 	
     constructor(id: number = 0, public name: string) {

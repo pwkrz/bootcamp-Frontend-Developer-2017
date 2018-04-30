@@ -2,9 +2,9 @@
 // import * as ProductModel from './product';
 import {Products} from './products';
 import {Product} from './product';
-import {baseModel} from './baseModel';
+import {baseItem} from './baseModels/item';
 
-export class Customer extends baseModel {
+export class Customer extends baseItem {
     private ownedProducts : Products
 
     constructor(id : number, public name : string, public email: string) {

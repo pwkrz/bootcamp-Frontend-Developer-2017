@@ -26,8 +26,6 @@ export class Products {
 	public add(productName: string, quantity: number): Array<Product.Product> {
 
 		let productId: number = this.getMaxId() + 1;
-
-		// console.log(productId)
 		
 		let product = new Product.Product(productId, productName, quantity)
 		

@@ -30,14 +30,12 @@ export class Server {
         router.use(ProductsRoute.Products.routes())
         router.use(CustomerRoutes.routes())
 
-        // router.get("/", indexRoute.index.bind(indexRoute));
-
         this.app.use(router);
     };
 
     startServer() {
         this.app.listen(3000, function () {
-            console.log("Serwer nasłuchuje na porcie 3000");
+            console.log("Server listening on port 3000");
         });
     }
 }
