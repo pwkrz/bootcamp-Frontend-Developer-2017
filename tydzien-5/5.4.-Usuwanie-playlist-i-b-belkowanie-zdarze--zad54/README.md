@@ -1,4 +1,4 @@
-# Deleting playlists and bubbling events
+# Deleting playlists and event bubbling
 
 + Add a delete button to each playlist list item. You can use the `&times;` symbol
 which will display the "X" in HTML.

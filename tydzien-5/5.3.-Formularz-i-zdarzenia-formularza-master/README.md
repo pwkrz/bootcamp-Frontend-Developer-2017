@@ -1,4 +1,4 @@
-# Form and form events
+# Forms and form events
 
 + Edit the playlist form using ngModel. Try wrapping all playlist input fields in a &lt;form&gt; element.
 + Angular should display an error referencing missing field names. Repair the error based on what the error message in the console says.
