@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const mimeTypes = require("./helpers").mimeTypes;
 
-module.exports = function(response, pathName) {
+module.exports = function(response, pathName, port) {
 
     let fileName = path.resolve( path.join(__dirname, "..", "dist", pathName) );
 
@@ -26,6 +26,10 @@ module.exports = function(response, pathName) {
         if (err) {
             console.log(err);
             return;
+        }
+
+        if (mimeType === "text/javascript") {
+            data = data.replace("@wsPort@", port);
         }
 
         response.writeHead(200, { "Content-type": mimeType });

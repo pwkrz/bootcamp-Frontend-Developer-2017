@@ -1,9 +1,9 @@
 const WebSocketServer = require("websocket").server;
 const getTimeStamp = require("./../lib/helpers").getTimeStamp;
 
-module.exports = function(httpServer, closeTimeout, allowedOrigins) {
+module.exports = function(httpServer, allowedOrigins) {
 
-    let wsServer = new WebSocketServer({ httpServer, closeTimeout }),
+    let wsServer = new WebSocketServer({ httpServer }),
         userNicks = [];
 
     return wsServer.on("request", function(request) {
@@ -80,6 +80,20 @@ module.exports = function(httpServer, closeTimeout, allowedOrigins) {
                     message: "left the chat."
                 }))
             }
+        });
+
+        connection.on("end", function(reasonCode, description) {
+
+            console.log(reasonCode)
+            console.log(description)
+
+        });
+
+        connection.on("pause", function(reasonCode, description) {
+
+            console.log(reasonCode)
+            console.log(description)
+
         });
     });
 };

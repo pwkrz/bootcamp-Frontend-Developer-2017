@@ -11,3 +11,14 @@
 
 * WebSocket server: [WebSocket-Node](https://github.com/theturtle32/WebSocket-Node)
 * HTTP server: Node HTTP module, Express [serve-static](https://github.com/expressjs/serve-static) middleware and Pillarjs [finalHandler](https://github.com/pillarjs/finalhandler)
+
+## API
+
+Default port is `3000`. To set custom port use 3rd command line argument:
+```
+node chat-server <port>
+```
+or
+```
+npm start -- <port>
+```

@@ -1,6 +1,4 @@
-﻿var wsPort = 3000;
-
-function newElement(type, classArray){
+﻿function newElement(type, classArray){
 
 	var el = document.createElement(type);
 
@@ -177,7 +175,7 @@ window.onload = function(){
 
 	Chat.prototype.joinChat = function(){
 
-		this.ws = new WebSocket("ws://localhost:" + wsPort, "magic-ws-protocol");
+		this.ws = new WebSocket("ws://localhost:" + "@wsPort@", "magic-ws-protocol");
 		
 		this.ws.onopen = this.validateConnection.bind(this);
 		this.ws.onmessage = this.dataReceivedHandler.bind(this);
