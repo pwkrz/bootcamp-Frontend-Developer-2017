@@ -1,55 +1,29 @@
-var http = require("http");
-var finalhandler = require("finalhandler");
-var serveStatic = require("serve-static");
-var WebSocketServer = require("websocket").server;
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
+const path = require("path");
+const WebSocketServer = require("websocket").server;
 
-var networkInterfaces = require("os").networkInterfaces;
-var getTimeStamp = require("./lib/helpers").getTimeStamp;
+const networkInterfaces = require("os").networkInterfaces;
+const getTimeStamp = require("./lib/helpers").getTimeStamp;
+const render = require("./lib/render.js");
+const ipV4check = require("./lib/helpers").ipV4check;
 
-var ipV4check = /\b(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/;
-var port = 3000;
-var userNicks = [];
-var allowedOrigins = ["http://localhost:" + port];
+const port = 3000;
+const userNicks = [];
 
-var serve = serveStatic("dist", {"acceptRanges": false})
- 
-var httpServer = http.createServer(function(req, res) {
+const httpInit = require("./servers/http-server");
 
-    serve(req, res, finalhandler(req, res));
-});
- 
-httpServer.listen(port, function() {
-
-    var networkInfo = networkInterfaces();
-
-    console.log("\nChat available at:\n")
-
-    for(var prop in networkInfo){
-
-        if( ipV4check.test( networkInfo[prop][1].address ) ){
-
-            var fullURL = "http://" + networkInfo[prop][1].address + ":" + port;
-
-            allowedOrigins.push(fullURL);
-
-            console.log(fullURL + " (" + prop + ")")
-        }
-    }
-});
+const { httpServer, allowedOrigins } = httpInit(port);
 
 var wsServer = new WebSocketServer({
     httpServer,
     closeTimeout: 5000
 });
  
-function originIsAllowed(origin) {
-
-  return allowedOrigins.includes(origin);
-}
- 
 wsServer.on("request", function(request) {
 
-    if (!originIsAllowed(request.origin)) {
+    if ( !(allowedOrigins.includes(request.origin)) ) {
       // Make sure we only accept requests from an allowed origin
       request.reject();
       console.log("\n" + (getTimeStamp()) + " Connection from origin [" + request.origin + "] rejected.");
