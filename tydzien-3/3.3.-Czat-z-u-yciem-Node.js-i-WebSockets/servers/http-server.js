@@ -5,7 +5,7 @@ const networkInterfaces = require("os").networkInterfaces;
 const render = require("./../lib/render.js");
 const ipV4check = require("./../lib/helpers").ipV4check;
 
-const init = function(port) {
+module.exports = function(port) {
 
     let allowedOrigins = ["http://localhost:" + port];
 
@@ -41,5 +41,3 @@ const init = function(port) {
         allowedOrigins: allowedOrigins
     }
 };
-
-module.exports = init;
