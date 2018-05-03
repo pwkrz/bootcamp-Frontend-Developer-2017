@@ -1,7 +1,7 @@
 {
   "name": "3.3.-czat-z-u-yciem-node.js-i-websockets-master",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Node.js and WebSocket-based local network chat application",
   "main": "scripts.js",
   "scripts": {
     "start": "node chat-server",
