@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "finalhandler": "^1.1.1",
-    "os": "^0.1.1",
     "serve-static": "^1.13.2",
     "websocket": "^1.0.25"
   }
