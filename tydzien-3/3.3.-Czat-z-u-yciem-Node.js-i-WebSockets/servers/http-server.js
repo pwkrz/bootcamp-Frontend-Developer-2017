@@ -14,28 +14,38 @@ module.exports = function(port) {
         // http server initializer
         httpServer: http.createServer(function(req, res) {
 
-                let pathName = url.parse(req.url).pathname;
-            
-                render(res, pathName, port);
-            
-            }).listen(port, function() {
-            
-                var networkInfo = networkInterfaces();
-            
-                console.log("\nChat available at:\n")
-            
-                for(var prop in networkInfo){
-            
-                    if( ipV4check.test( networkInfo[prop][1].address ) ){
-            
-                        var fullURL = "http://" + networkInfo[prop][1].address + ":" + port;
-            
-                        allowedOrigins.push(fullURL);
-            
-                        console.log(fullURL + " (" + prop + ")")
-                    }
+        if (req.method !== "GET") {
+
+            console.log("\nUnsupported request method: " + req.method);
+
+            res.writeHead(405, { "Content-type": "text/plain" });
+            res.write("Only GET requests allowed");
+            res.end();
+            return;
+        }
+
+            let pathName = url.parse(req.url).pathname;
+        
+            render(res, pathName, port);
+        
+        }).listen(port, function() {
+        
+            var networkInfo = networkInterfaces();
+        
+            console.log("\nChat available at:\n")
+        
+            for(var prop in networkInfo){
+        
+                if( ipV4check.test( networkInfo[prop][1].address ) ){
+        
+                    var fullURL = "http://" + networkInfo[prop][1].address + ":" + port;
+        
+                    allowedOrigins.push(fullURL);
+        
+                    console.log(fullURL + " (" + prop + ")")
                 }
-            }),
+            }
+        }),
         
         // complete list of allowed origins after server is initialized
         allowedOrigins: allowedOrigins
