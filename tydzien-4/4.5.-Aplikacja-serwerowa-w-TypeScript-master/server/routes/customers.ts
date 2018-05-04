@@ -19,9 +19,9 @@ export class Customers {
         router.get("/customers/:customer", customersRoute.find.bind(customersRoute));
         router.post("/customers/delete/:id", customersRoute.delete.bind(customersRoute));
         router.post("/customers/update/:id", customersRoute.update.bind(customersRoute));
-        router.get("/customers/:id/get-all-products", customersRoute.getAllProducts.bind(customersRoute));
-        router.post("/customers/:id/get-product", customersRoute.getProduct.bind(customersRoute));
-        router.post("/customers/add-product", customersRoute.addProduct.bind(customersRoute));
+        router.get("/customers/:id/get-products", customersRoute.getAllProducts.bind(customersRoute));
+        router.post("/customers/:id/get-products", customersRoute.getProduct.bind(customersRoute));
+        router.post("/customers/:id/add-product", customersRoute.addProduct.bind(customersRoute));
 
         return router
     }
@@ -117,19 +117,19 @@ export class Customers {
 		let customerId: number = parseInt( req.params.id );
 		let customer: Customer = this.customerList.fetch(customerId);
 
-		let product: string = req.body.product;
+		let query: string = req.body.query;
 
-		if(!customer || !product){
+		if(!customer || !query){
 			res.status(404).send("Not found!")
 			return
 		}
 		
-		res.json(customer.getProduct(product))
+		res.json(customer.getProduct(query))
 	}
 
 	public addProduct(req: express.Request, res: express.Response) {
 
-		let customerId: number = parseInt( req.body.id );
+		let customerId: number = parseInt( req.params.id );
 		let customer: Customer = this.customerList.fetch(customerId)
 		
 		let product: string = req.body.product;

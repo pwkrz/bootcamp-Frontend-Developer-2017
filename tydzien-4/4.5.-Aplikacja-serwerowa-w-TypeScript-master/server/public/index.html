@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Pseudo server application</title>
+</head>
+<body class="text-light bg-dark">
+    <div class="container">
+        <h1>Pseudo server application</h1>
+        <p class="mb-5">Use a rest client ( e.g. <a target="_blank" href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo">Advanced REST client</a> ) to make REST API calls.</p>
+        <h2 class="mb-4">/products</h2>
+        <div class="table-responsive-lg mb-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">method</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">parameters (JSON)</th>
+                    <th scope="col" colspan="2">result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers</pre></td>
+                        <td></td>
+                        <td>returns list of customers</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers</pre></td>
+                        <td><pre class="text-light">{ name: string, ?email: string }</pre></td>
+                        <td>creates customer entry and returns resulting entry</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">PUT</th>
+                        <td><pre class="text-light">/customers/:id</pre></td>
+                        <td><pre class="text-light">{ ?name: string, ?email: string }</pre></td>
+                        <td>updates customer entry and returns resulting entry</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">DELETE</th>
+                        <td><pre class="text-light">/customers/:id</pre></td>
+                        <td></td>
+                        <td>deletes customer entry with matching id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers/:query</pre></td>
+                        <td></td>
+                        <td>returns an array of customer entries which match the query</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers/:id/get-products</pre></td>
+                        <td></td>
+                        <td>returns all products owned by a customer with matchin id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers/:id/get-products</pre></td>
+                        <td><pre class="text-light">{ ?query: string|number }</pre></td>
+                        <td>returns an array of matching products owned by matched customer</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers/:id/add-product</pre></td>
+                        <td><pre class="text-light">{ product: string, quantity: number }</pre></td>
+                        <td>transfers the defined product to the matched customer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2 class="mb-4">/customers</h2>
+        <div class="table-responsive-lg mb-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">method</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">parameters (JSON)</th>
+                    <th scope="col" colspan="2">result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers</pre></td>
+                        <td></td>
+                        <td>returns list of customers</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers</pre></td>
+                        <td><pre class="text-light">{ name: string, ?email: string }</pre></td>
+                        <td>creates customer entry and returns resulting entry</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">PUT</th>
+                        <td><pre class="text-light">/customers/:id</pre></td>
+                        <td><pre class="text-light">{ ?name: string, ?email: string }</pre></td>
+                        <td>updates customer entry and returns resulting entry</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">DELETE</th>
+                        <td><pre class="text-light">/customers/:id</pre></td>
+                        <td></td>
+                        <td>deletes customer entry with matching id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers/:query</pre></td>
+                        <td></td>
+                        <td>returns an array of customer entries which match the query</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers/:id/get-products</pre></td>
+                        <td></td>
+                        <td>returns all products owned by a customer with matchin id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers/:id/get-products</pre></td>
+                        <td><pre class="text-light">{ ?query: string|number }</pre></td>
+                        <td>returns an array of matching products owned by matched customer</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">POST</th>
+                        <td><pre class="text-light">/customers/:id/add-product</pre></td>
+                        <td><pre class="text-light">{ product: string, quantity: number }</pre></td>
+                        <td>transfers the defined product to the matched customer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
