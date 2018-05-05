@@ -13,14 +13,14 @@ export class Customers {
         let customersRoute: Customers = new Customers();
 
         router.get("/customers", customersRoute.index.bind(customersRoute));
-        router.post("/customers", customersRoute.create.bind(customersRoute));
-        router.put("/customers/:id", customersRoute.update.bind(customersRoute));
-        router.delete("/customers/:id", customersRoute.delete.bind(customersRoute));
+        router.post("/customers/create", customersRoute.create.bind(customersRoute));
+        router.put("/customers/:id/update", customersRoute.update.bind(customersRoute));
+        router.delete("/customers/:id/delete", customersRoute.delete.bind(customersRoute));
         router.get("/customers/:customer", customersRoute.find.bind(customersRoute));
-        router.post("/customers/delete/:id", customersRoute.delete.bind(customersRoute));
+        router.post("/customers/:id/delete", customersRoute.delete.bind(customersRoute));
         router.post("/customers/update/:id", customersRoute.update.bind(customersRoute));
         router.get("/customers/:id/get-products", customersRoute.getAllProducts.bind(customersRoute));
-        router.post("/customers/:id/get-products", customersRoute.getProduct.bind(customersRoute));
+        router.get("/customers/:id/get-products/:query", customersRoute.getProduct.bind(customersRoute));
         router.post("/customers/:id/add-product", customersRoute.addProduct.bind(customersRoute));
 
         return router
@@ -117,7 +117,7 @@ export class Customers {
 		let customerId: number = parseInt( req.params.id );
 		let customer: Customer = this.customerList.fetch(customerId);
 
-		let query: string = req.body.query;
+		let query: string = req.params.query;
 
 		if(!customer || !query){
 			res.status(404).send("Not found!")

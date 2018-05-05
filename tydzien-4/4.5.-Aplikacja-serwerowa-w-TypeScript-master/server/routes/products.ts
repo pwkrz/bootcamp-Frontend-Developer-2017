@@ -12,12 +12,12 @@ export class Products {
         let productsRoute: Products = new Products();
 
         router.get("/products", productsRoute.index.bind(productsRoute));
-        router.post("/products", productsRoute.create.bind(productsRoute));
-        router.put("/products/:product_id", productsRoute.update.bind(productsRoute));
-        router.delete("/products/:product_id", productsRoute.delete.bind(productsRoute));
-        router.get("/products/:product", productsRoute.find.bind(productsRoute));
-        router.post("/products/delete/:product_id", productsRoute.delete.bind(productsRoute));
-        router.post("/products/update/:product_id", productsRoute.update.bind(productsRoute));
+        router.post("/products/create", productsRoute.create.bind(productsRoute));
+        router.put("/products/:product_id/update", productsRoute.update.bind(productsRoute));
+        router.delete("/products/:product_id/delete", productsRoute.delete.bind(productsRoute));
+        router.get("/products/:query", productsRoute.find.bind(productsRoute));
+        router.post("/products/:product_id/delete", productsRoute.delete.bind(productsRoute));
+        router.post("/products/:product_id/update", productsRoute.update.bind(productsRoute));
 
         return router
     }
@@ -70,7 +70,7 @@ export class Products {
 	}
 	
 	public find(req: express.Request, res: express.Response) {
-        let productQuery: string = req.params.product;
+        let productQuery: string = req.params.query;
 		
 		let product: Array<Product.Product> = this.productList.find(productQuery)
 		
