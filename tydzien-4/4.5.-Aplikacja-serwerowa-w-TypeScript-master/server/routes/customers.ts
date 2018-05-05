@@ -44,7 +44,7 @@ export class Customers {
 		console.log(req.body.name)
 		
 		if(!customerName){
-			res.status(500).send("Podaj imię!")
+			res.status(500).send("<pre>Customer name not provided!</pre>")
 			return
 		}
 				
@@ -59,7 +59,7 @@ export class Customers {
 		let email: string = req.body.email;
 	
 		if(!customer){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 		
@@ -80,7 +80,7 @@ export class Customers {
 		let customerArr: Array<Customer> = this.customerList.find(customerQuery);
 		
 		if(!customerArr.length){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 		
@@ -93,7 +93,7 @@ export class Customers {
 		let customer: Customer = this.customerList.fetch(customerId)
 		
 		if(!customer){
-			res.status(404).send("Not found!");
+			res.status(404).send("<pre>Not found!</pre>");
 			return;
 		}
 		
@@ -106,7 +106,7 @@ export class Customers {
 		let isDeleted: Boolean = this.customerList.delete(customerId)
 		
 		if(!isDeleted){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		} else {
 			res.json({ success: true })
@@ -119,7 +119,7 @@ export class Customers {
 		let customer: Customer = this.customerList.fetch(customerId);
 
 		if(!customer){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 		
@@ -134,7 +134,7 @@ export class Customers {
 		let query: string = req.params.query;
 
 		if(!customer || !query){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 		
@@ -150,7 +150,7 @@ export class Customers {
 		let quantity: number = parseInt(req.body.quantity);
 
 		if(!customer){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 		// console.log(ProductsInStore)

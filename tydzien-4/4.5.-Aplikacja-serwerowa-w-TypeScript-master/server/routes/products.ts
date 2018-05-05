@@ -31,7 +31,7 @@ export class Products {
 		]);
     }
 
-    public index(req: express.Request, res: express.Response) {
+    public index(_: any, res: express.Response) {
         res.json(this.productList.getList());
     }
 	
@@ -40,7 +40,7 @@ export class Products {
         let quantity: number = parseInt(req.body.quantity) || 0;
 		
 		if(!productName){
-			res.status(500).send("Product name not found!")
+			res.status(400).send("<pre>Product name not found!</pre>")
 			return
 		}
 				
@@ -51,11 +51,11 @@ export class Products {
 		let productId: number = parseInt( req.params.id );
 		let product: Product.Product = this.productList.fetch(productId)
 		
-		let productName: string = req.body.product || product.getName();
+		let productName: string = req.body.product;
 		let quantity: number = parseInt(req.body.quantity)
 	
 		if(!product){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		}
 
@@ -76,7 +76,7 @@ export class Products {
 		let product: Array<Product.Product> = this.productList.find(productQuery)
 		
 		if(!product.length){
-			res.status(404).send("Not found!");
+			res.status(404).send("<pre>Not found!</pre>");
 			return;
 		}
 		
@@ -89,7 +89,7 @@ export class Products {
 		let product: Product.Product = this.productList.fetch(productId)
 		
 		if(!product){
-			res.status(404).send("Not found!");
+			res.status(404).send("<pre>Not found!</pre>");
 			return;
 		}
 		
@@ -102,7 +102,7 @@ export class Products {
 		let isDeleted: Boolean = this.productList.delete(productId)
 		
 		if(!isDeleted){
-			res.status(404).send("Not found!")
+			res.status(404).send("<pre>Not found!</pre>")
 			return
 		} else {
 			res.json({ success: true })

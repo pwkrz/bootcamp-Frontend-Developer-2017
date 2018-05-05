@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import * as IndexRoute from './routes/index';
+import * as path from 'path';
+import * as ErrorHandler from './routes/404';
 import * as ProductsRoute from './routes/products';
 import {Customers as CustomerRoutes} from './routes/customers';
 
@@ -19,6 +20,8 @@ export class Server {
 		this.app.use(bodyParser.urlencoded({
 			extended: true
 		}))
+        this.app.use(express.static(path.join(__dirname, 'public'), {"fallthrough": false}));
+        this.app.use(ErrorHandler.ErrorHandler.handle)
 
         this.setRoutes()
     };
@@ -26,7 +29,6 @@ export class Server {
     private setRoutes() {
         let router: express.Router = express.Router();
         
-        router.use(IndexRoute.Index.routes())
         router.use(ProductsRoute.Products.routes())
         router.use(CustomerRoutes.routes())
 
@@ -35,7 +37,7 @@ export class Server {
 
     startServer() {
         this.app.listen(3000, function () {
-            console.log("\nServer listening on port 3000");
+            console.log("\nServer listening on port 3000\n");
         });
     }
 }
