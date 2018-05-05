@@ -78,8 +78,6 @@ export class BaseList {
 			return !match
         } );
 
-		console.log(this.list)  
 		return deleted;
 	}
-
 }
