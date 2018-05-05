@@ -13,11 +13,12 @@ export class Products {
 
         router.get("/products", productsRoute.index.bind(productsRoute));
         router.post("/products/create", productsRoute.create.bind(productsRoute));
-        router.put("/products/:product_id/update", productsRoute.update.bind(productsRoute));
-        router.delete("/products/:product_id/delete", productsRoute.delete.bind(productsRoute));
-        router.get("/products/:query", productsRoute.find.bind(productsRoute));
-        router.post("/products/:product_id/delete", productsRoute.delete.bind(productsRoute));
-        router.post("/products/:product_id/update", productsRoute.update.bind(productsRoute));
+        router.put("/products/:id/update", productsRoute.update.bind(productsRoute));
+        router.delete("/products/:id/delete", productsRoute.delete.bind(productsRoute));
+        router.get("/products/search/:query", productsRoute.find.bind(productsRoute));
+        router.get("/products/:id", productsRoute.fetch.bind(productsRoute));
+        router.post("/products/:id/delete", productsRoute.delete.bind(productsRoute));
+        router.post("/products/:id/update", productsRoute.update.bind(productsRoute));
 
         return router
     }
@@ -47,7 +48,7 @@ export class Products {
     }
 	
 	public update(req: express.Request, res: express.Response) {
-		let productId: number = parseInt( req.params.product_id );
+		let productId: number = parseInt( req.params.id );
 		let product: Product.Product = this.productList.fetch(productId)
 		
 		let productName: string = req.body.product || product.getName();
@@ -80,10 +81,23 @@ export class Products {
 		}
 		
 		res.json(product)
+	}
+	
+	public fetch(req: express.Request, res: express.Response) {
+        let productId: number = req.params.id;
+		
+		let product: Product.Product = this.productList.fetch(productId)
+		
+		if(!product){
+			res.status(404).send("Not found!");
+			return;
+		}
+		
+		res.json(product)
     }
 	
 	public delete(req: express.Request, res: express.Response) {
-		let productId: string = req.params.product_id;
+		let productId: string = req.params.id;
 		
 		let isDeleted: Boolean = this.productList.delete(productId)
 		

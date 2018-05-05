@@ -16,7 +16,8 @@ export class Customers {
         router.post("/customers/create", customersRoute.create.bind(customersRoute));
         router.put("/customers/:id/update", customersRoute.update.bind(customersRoute));
         router.delete("/customers/:id/delete", customersRoute.delete.bind(customersRoute));
-        router.get("/customers/:customer", customersRoute.find.bind(customersRoute));
+        router.get("/customers/search/:query", customersRoute.find.bind(customersRoute));
+        router.get("/customers/:id", customersRoute.fetch.bind(customersRoute));
         router.post("/customers/:id/delete", customersRoute.delete.bind(customersRoute));
         router.post("/customers/update/:id", customersRoute.update.bind(customersRoute));
         router.get("/customers/:id/get-products", customersRoute.getAllProducts.bind(customersRoute));
@@ -74,7 +75,7 @@ export class Customers {
 	}
 	
 	public find(req: express.Request, res: express.Response) {
-        let customerQuery: string = req.params.customer;
+        let customerQuery: string = req.params.query;
 		
 		let customerArr: Array<Customer> = this.customerList.find(customerQuery);
 		
@@ -84,6 +85,19 @@ export class Customers {
 		}
 		
 		res.json(customerArr)
+	}
+	
+	public fetch(req: express.Request, res: express.Response) {
+        let customerId: number = req.params.id;
+		
+		let customer: Customer = this.customerList.fetch(customerId)
+		
+		if(!customer){
+			res.status(404).send("Not found!");
+			return;
+		}
+		
+		res.json(customer)
     }
 	
 	public delete(req: express.Request, res: express.Response) {

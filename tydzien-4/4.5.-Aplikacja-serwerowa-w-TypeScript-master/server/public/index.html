@@ -31,6 +31,12 @@
                         <td>returns array of all products</td>
                     </tr>
                     <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/products/:id</pre></td>
+                        <td></td>
+                        <td>returns matched product entry</td>
+                    </tr>
+                    <tr>
                         <th scope="row">POST</th>
                         <td><pre class="text-light">/products/create</pre></td>
                         <td><pre class="text-light">{ product: string, ?quantity: number }</pre></td>
@@ -50,7 +56,7 @@
                     </tr>
                     <tr>
                         <th scope="row">GET</th>
-                        <td><pre class="text-light">/products/:query</pre></td>
+                        <td><pre class="text-light">/products/search/:query</pre></td>
                         <td></td>
                         <td>returns an array of matching product entries</td>
                     </tr>
@@ -76,6 +82,12 @@
                         <td>returns array of all customers</td>
                     </tr>
                     <tr>
+                        <th scope="row">GET</th>
+                        <td><pre class="text-light">/customers/:id</pre></td>
+                        <td></td>
+                        <td>returns matched customer entry</td>
+                    </tr>
+                    <tr>
                         <th scope="row">POST</th>
                         <td><pre class="text-light">/customers/create</pre></td>
                         <td><pre class="text-light">{ name: string, ?email: string }</pre></td>
@@ -95,7 +107,7 @@
                     </tr>
                     <tr>
                         <th scope="row">GET</th>
-                        <td><pre class="text-light">/customers/:query</pre></td>
+                        <td><pre class="text-light">/customers/search/:query</pre></td>
                         <td></td>
                         <td>returns an array of matched customer entries</td>
                     </tr>
