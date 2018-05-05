@@ -162,9 +162,8 @@ export class Customers {
 
 			
 		// }
-		
-		res.json({customer: customer.getName(), products: customer.getAllProducts()})
 
+		res.json(customer)
 	}
 
 }
