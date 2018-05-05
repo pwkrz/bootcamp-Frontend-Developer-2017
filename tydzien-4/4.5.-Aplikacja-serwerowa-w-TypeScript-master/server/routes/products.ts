@@ -35,7 +35,7 @@ export class Products {
     }
 	
 	public create(req: express.Request, res: express.Response) {
-        let productName: string = req.body.name;
+        let productName: string = req.body.product;
         let quantity: number = parseInt(req.body.quantity) || 0;
 		
 		if(!productName){
@@ -50,7 +50,7 @@ export class Products {
 		let productId: number = parseInt( req.params.product_id );
 		let product: Product.Product = this.productList.fetch(productId)
 		
-		let productName: string = req.body.name;
+		let productName: string = req.body.product || product.getName();
 		let quantity: number = parseInt(req.body.quantity)
 	
 		if(!product){
