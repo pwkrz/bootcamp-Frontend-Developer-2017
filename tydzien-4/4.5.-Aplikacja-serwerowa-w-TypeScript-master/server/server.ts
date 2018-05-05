@@ -27,8 +27,8 @@ export class Server {
     private setRoutes() {
         let router: express.Router = express.Router();
         
-        router.use(ProductsRoute.Products.routes())
-        router.use(CustomerRoutes.routes())
+        router.use(ProductsRoute.Products.routes());
+        router.use(CustomerRoutes.routes());
 
         this.app.use(router);
         this.app.use(express.static(path.join(__dirname, 'public'), {"fallthrough": false}));
