@@ -20,8 +20,6 @@ export class Server {
 		this.app.use(bodyParser.urlencoded({
 			extended: true
 		}))
-        this.app.use(express.static(path.join(__dirname, 'public'), {"fallthrough": false}));
-        this.app.use(ErrorHandler.ErrorHandler.handle)
 
         this.setRoutes()
     };
@@ -33,6 +31,8 @@ export class Server {
         router.use(CustomerRoutes.routes())
 
         this.app.use(router);
+        this.app.use(express.static(path.join(__dirname, 'public'), {"fallthrough": false}));
+        this.app.use(ErrorHandler.ErrorHandler.handle)
     };
 
     startServer() {
