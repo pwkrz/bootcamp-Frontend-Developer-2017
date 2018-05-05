@@ -101,6 +101,8 @@ export class Products {
 		
 		let isDeleted: Boolean = this.productList.delete(productId)
 		
+		console.log("isDeleted", isDeleted)
+		
 		if(!isDeleted){
 			res.status(404).send("<pre>Not found!</pre>")
 			return

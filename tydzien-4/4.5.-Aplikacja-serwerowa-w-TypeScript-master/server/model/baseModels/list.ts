@@ -63,11 +63,22 @@ export class BaseList {
 	public delete(itemQuery: string|number): Boolean {
         let deleted = false;
 		
-		this.list = this.list.filter( (el: Product|Customer) => {
-			deleted = ( el.getId() === parseInt(itemQuery.toString()) || el.getName().toLowerCase() === itemQuery.toString().toLowerCase() )
-			return ( el.getId() !== parseInt(itemQuery.toString()) && el.getName().toLowerCase() !== itemQuery.toString().toLowerCase() )
-		} );
-		
+		this.list = this.list.filter( (el: any) => {
+            let match = el.getId() === parseInt(itemQuery.toString())
+                        || el.getName().toLowerCase() === itemQuery.toString().toLowerCase();
+
+            if (deleted && !match) {
+
+                el.id -= 1;
+    
+            }
+            
+            if (match) deleted = true;
+                
+			return !match
+        } );
+
+		console.log(this.list)  
 		return deleted;
 	}
 
