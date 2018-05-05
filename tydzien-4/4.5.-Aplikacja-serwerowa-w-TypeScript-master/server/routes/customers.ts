@@ -41,8 +41,6 @@ export class Customers {
         let customerName: string = req.body.name;
         let email: string = req.body.email || "";
 		
-		console.log(req.body.name)
-		
 		if(!customerName){
 			res.status(500).send("<pre>Customer name not provided!</pre>")
 			return

@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as ErrorHandler from './routes/404';
+import * as Index from './routes/index';
 import * as ProductsRoute from './routes/products';
 import {Customers as CustomerRoutes} from './routes/customers';
 
@@ -19,8 +20,8 @@ export class Server {
 		this.app.use(bodyParser.json())
 		this.app.use(bodyParser.urlencoded({
 			extended: true
-		}))
-
+        }))
+        
         this.setRoutes()
     };
 
@@ -29,9 +30,9 @@ export class Server {
         
         router.use(ProductsRoute.Products.routes());
         router.use(CustomerRoutes.routes());
+        router.use(Index.Index.serveFile(path.join(__dirname, "public", "index.html")));
 
         this.app.use(router);
-        this.app.use(express.static(path.join(__dirname, 'public'), {"fallthrough": false}));
         this.app.use(ErrorHandler.ErrorHandler.handle)
     };
 
