@@ -7,3 +7,18 @@ shared as a resource.
 + Come up with a new resource that will have four attributes.
 + Implement its model and access interface (use proper routing).
 + It should offer standard methods, i.e. listing, downloading, creating, editing and deleting of resources.
+
+**Scripts**
+
+Build server and start application:
+```
+npm start
+```
+Only build server:
+```
+npm run build
+```
+Start dev server:
+```
+npm run dev
+```

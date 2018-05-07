@@ -12,17 +12,19 @@ const browserSync = require('browser-sync').create();
 export class Gulpfile {
 
     @Task()
-    clean(cb: Function) {
-        return del(["./dist/**"], cb)
+    clean() {
+
+        return del(["./dist/**"])
     }
 
     @Task("build:server")
     buildServer(){
-        var reporter = path.resolve("./server/tsconfig.json");
+        var tsconfig = path.resolve("./server/tsconfig.json");
         
         var tsResult = gulp.src("./server/**/*.ts")
             .pipe( sourcemaps.init() )
-            .pipe( ts(reporter) );
+            .pipe( ts(tsconfig) );
+
         return tsResult.js
             .pipe( sourcemaps.write() )
             .pipe( gulp.dest(
@@ -30,24 +32,14 @@ export class Gulpfile {
             ));
     };
 
-    @Task("watch:server")
-    watchServer(){
-        // return browserSync.reload
-        return gulp.watch("./server/**/*.*", ["build:server"], browserSync.reload)
-    }
+    @Task("copy:public")
+    copyPublic(){
 
-    @Task("syncServer", ['build:server'])
-    syncServer(){
-        var stream = nodemon({
-                       script: './dist/server/' // run ES5 code
-                     , watch: './server' // watch ES2015 code
-                     , ext: 'ts' // watch ES2015 code
-                     , ignore: ['tsconfig.json']
-                     , tasks: ['build:server'] // compile synchronously onChange
-                     })        
-      
-        return stream
-      }
+        return gulp.src("./server/public/**/*.*")
+            .pipe( gulp.dest(
+                path.resolve("./dist/server/public")
+            ));
+    }
 
     @Task("dev:server")
     syncServer(){
@@ -58,12 +50,12 @@ export class Gulpfile {
                      , ignore: ['*.spec.ts']
                      })        
       
-        return stream
+        return stream;
       }
 
     @SequenceTask()
     default(){
-        return ["clean", "build:server", "syncServer"]
+        return ["clean", "build:server", "copy:public"]
     }
 
 }

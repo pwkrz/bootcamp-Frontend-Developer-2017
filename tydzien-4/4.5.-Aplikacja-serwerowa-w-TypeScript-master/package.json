@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
+    "prestart": "npm run build",
+    "start": "node dist/server/index.js",
     "dev": "gulp dev:server",
-    "dist": "node dist/server/index.js",
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1  && node ./dist/server/index.js"
   },
   "repository": {
