@@ -42,7 +42,7 @@ export class Gulpfile {
     }
 
     @Task("dev:server")
-    syncServer(){
+    devServer(){
         var stream = nodemon({
                        exec: 'ts-node ./server/index.ts' // run ES5 code
                      , watch: './server' // watch ES2015 code
