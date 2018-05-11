@@ -10,7 +10,7 @@
 ## Used npm packages
 
 * WebSocket server: [WebSocket-Node](https://github.com/theturtle32/WebSocket-Node)
-* HTTP server: Node HTTP module, Express [serve-static](https://github.com/expressjs/serve-static) middleware and Pillarjs [finalHandler](https://github.com/pillarjs/finalhandler)
+* HTTP server: Node HTTP, OS, URL, PATH, FS modules
 
 ## API
 
