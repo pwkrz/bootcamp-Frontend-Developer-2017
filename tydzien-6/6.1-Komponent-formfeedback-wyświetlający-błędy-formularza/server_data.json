@@ -1,0 +1,18 @@
+{
+    "playlists": [
+        {
+            "id": 1,
+            "name": "Magma: Best ov",
+            "tracks": 12,
+            "color": "#ff0000",
+            "favourite": 1
+        },
+        {
+            "id": 2,
+            "name": "David Bowie: All the groovy tunes",
+            "tracks": 15,
+            "color": "#ff00ff",
+            "favourite": 0
+        }
+    ]
+}
