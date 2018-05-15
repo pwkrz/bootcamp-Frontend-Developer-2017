@@ -10,9 +10,6 @@ import { ContentCardComponent } from './playlist-detail/content-card.component';
 import { PlaylistSelectedComponent } from './playlist-detail/playlist-selected.component';
 import { PlaylistsService } from './playlists.service';
 
-import PlaylistsExampleData from './playlists.data';
-import playlistsData from './playlists.data';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -30,21 +27,7 @@ import playlistsData from './playlists.data';
     PlayListComponent
   ],
   providers: [
-    PlaylistsService,
-    {provide: "PlaylistsExampleData", useValue: PlaylistsExampleData},
-    {provide: "PlaylistsData", useFactory : (data) => {
-
-      data.push({
-        id: Date.now(),
-        name: "Damo Suzuki: Back in the DRKP",
-        tracks: 1,
-        color: "#0ff",
-        favourite: false
-      });
-
-      return data;
-
-    }, deps: ["PlaylistsExampleData"]}
+    PlaylistsService
   ]
 })
 export class PlayListModule { }

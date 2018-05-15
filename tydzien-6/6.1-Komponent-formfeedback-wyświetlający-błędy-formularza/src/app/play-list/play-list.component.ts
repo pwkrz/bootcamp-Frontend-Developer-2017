@@ -11,40 +11,39 @@ export class PlayListComponent implements OnInit {
 
   playlists: Array<object>;
 
-  constructor(private playlistsService: PlaylistsService) {
-    this.playlists = this.playlistsService.getPlaylists();
+  constructor() {
   }
 
-  selected;
-  mode;
-  edited = { };
+  // selected;
+  // mode;
+  // edited = { };
 
-  select(playlist){
+  // select(playlist){
 
-    this.mode = "select";
-    this.selected = playlist;
+  //   this.mode = "select";
+  //   this.selected = playlist;
 
-  }
+  // }
 
-  edit(playlist){
+  // edit(playlist){
 
-    this.mode = "edit";
-    this.edited = Object.assign({}, playlist);;
+  //   this.mode = "edit";
+  //   this.edited = Object.assign({}, playlist);;
 
-  }
+  // }
 
-  createNew(){
+  // createNew(){
 
-    this.mode = "edit";
-    this.edited = this.playlistsService.createPlaylist();
-    this.selected = { ...this.edited, name: "New playlist" };
+  //   this.mode = "edit";
+  //   this.edited = this.playlistsService.createPlaylist();
+  //   this.selected = { ...this.edited, name: "New playlist" };
 
-  }
+  // }
 
-  save(newPlaylist){
-    this.mode = "none";
-    this.playlistsService.savePlaylist(newPlaylist);
-  }
+  // save(newPlaylist){
+  //   this.mode = "none";
+  //   this.playlistsService.savePlaylist(newPlaylist);
+  // }
 
   ngOnInit() {
   }

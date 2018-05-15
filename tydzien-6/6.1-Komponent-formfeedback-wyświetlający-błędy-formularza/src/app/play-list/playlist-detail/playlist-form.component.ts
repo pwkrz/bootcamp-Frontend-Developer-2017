@@ -1,4 +1,4 @@
-import { PlaylistsService } from './../playlists.service';
+import { PlaylistsService, PlaylistModel } from './../playlists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
@@ -26,10 +26,14 @@ export class PlaylistFormComponent implements OnInit {
 
       if (id) {
 
-        let playlist = this.playlistService.getPlaylist(id);
-        this.playlist = Object.assign({}, playlist);
-        this.title = `Editing: ${this.playlist.name}`;
-        this.description = "Use the form to edit playlist details.";
+        this.playlistService.getPlaylist(id)
+          .subscribe( (playlist: PlaylistModel) => {
+
+            this.playlist = Object.assign({}, playlist);
+            this.title = `Editing: ${this.playlist.name}`;
+            this.description = "Use the form to edit playlist details.";
+
+          });
 
       } else if (this.activeRoute.snapshot.url[0].path === 'new') {
 
@@ -43,11 +47,12 @@ export class PlaylistFormComponent implements OnInit {
 
   save(valid, data){
 
-    console.log(valid, data)
-
     if (!valid) return;
 
-    this.playlistService.savePlaylist(this.playlist);
+    this.playlistService.savePlaylist(this.playlist)
+      .subscribe( playlist => {
+        this.router.navigate(['playlists', playlist.id]);
+      });
 
     this.router.navigate(['playlists', this.playlist.id]);
 

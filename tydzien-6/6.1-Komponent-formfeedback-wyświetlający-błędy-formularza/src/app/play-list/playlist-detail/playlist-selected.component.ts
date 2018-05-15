@@ -1,4 +1,4 @@
-import { PlaylistsService } from './../playlists.service';
+import { PlaylistsService, PlaylistModel } from './../playlists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
@@ -30,9 +30,13 @@ export class PlaylistSelectedComponent implements OnInit {
 
       if(id){
         this.mode = 'select';
-        this.playlist = this.playlistSearch.getPlaylist(id);
-        this.title = this.playlist.name;
-        this.description = "Click the button to edit details:"
+        this.playlistSearch.getPlaylist(id)
+          .subscribe( (playlist: PlaylistModel) => {
+
+            this.playlist = playlist;
+            this.title = playlist.name;
+            this.description = "Click the button to edit details:"
+          });
       } 
     }) 
   }

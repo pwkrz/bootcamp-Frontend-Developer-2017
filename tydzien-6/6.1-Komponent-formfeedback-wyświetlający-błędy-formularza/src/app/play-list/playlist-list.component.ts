@@ -1,4 +1,6 @@
+import { PlaylistsService, PlaylistModel } from './playlists.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'playlist-list',
@@ -12,15 +14,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         <th scope="col">Favourite</th>
       </tr>
     </thead>
-    <tbody *ngFor="let playlist of playlists; let i = index">
-      <tr
+    <tbody>
+      <tr *ngFor="let playlist of playlistStream$ | async; let i = index"
           [routerLink]='playlist.id'
           [ngClass]='{"table-active": playlist == selected }'
           [ngStyle]='{backgroundColor: getBgColor(playlist.color), border: "2px solid" + playlist.color}' >
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ playlist.name }}</td>
-        <td>{{ playlist.tracks }}</td>
-        <td><input type="checkbox" [(ngModel)]="playlist.favourite"></td>
+        <td>{{ playlist.tracks.length }}</td>
+        <td><input type="checkbox" [checked]="playlist.favourite" disabled></td>
       </tr>
     </tbody>
   </table>
@@ -33,24 +35,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PlaylistListComponent implements OnInit {
 
-  @Input()
-  playlists;
+  playlistStream$: Observable<PlaylistModel[]>;
 
-  @Input()
-  selected;
-
-  // @Output("select")
-  // onSelect = new EventEmitter();
-
-  // select(playlist){
-
-  //   this.onSelect.emit(playlist);
-
-  // }
-
-  constructor() { }
+  constructor(private playlistService: PlaylistsService) { }
 
   ngOnInit() {
+    this.playlistStream$ = this.playlistService.getPlaylistStream();
   }
 
   getBgColor(hex){
