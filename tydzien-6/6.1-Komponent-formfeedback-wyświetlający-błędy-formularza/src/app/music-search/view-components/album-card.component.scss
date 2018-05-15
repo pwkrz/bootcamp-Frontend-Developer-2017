@@ -1,0 +1,25 @@
+:host() {
+    flex: 0 0 33% !important;
+    margin-bottom: 1.75rem;
+    cursor: cell;
+
+    .card {
+        overflow: hidden;
+
+        .card-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-img-overlay {
+            background: rgba(0,0,0,.5);
+            top: 100%;
+            color: #fff;
+            font-size: 1em !important;
+            transition: .2s top ease-in-out;
+        }
+        &:hover .card-img-overlay {
+            top: calc(100% - 115px);
+        }
+    }
+}
