@@ -1,3 +1,4 @@
+import { MusicSharedModule } from './../music-shared/music-shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,12 +9,12 @@ import { PlaylistFormComponent } from './playlist-detail/playlist-form.component
 import { PlaylistListComponent } from './playlist-list.component';
 import { ContentCardComponent } from './playlist-detail/content-card.component';
 import { PlaylistSelectedComponent } from './playlist-detail/playlist-selected.component';
-import { PlaylistsService } from './playlists.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    MusicSharedModule,
     routerModule
   ],
   declarations: [
@@ -26,8 +27,6 @@ import { PlaylistsService } from './playlists.service';
   exports: [
     PlayListComponent
   ],
-  providers: [
-    PlaylistsService
-  ]
+  providers: []
 })
 export class PlayListModule { }
