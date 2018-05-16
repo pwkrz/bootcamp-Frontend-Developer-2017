@@ -11,7 +11,7 @@ export class PlaylistSelectionService {
   constructor(private playlistService: PlaylistsService) {
     
     this.playlistService.getPlaylistStream()
-      .subscribe( playlists => { if (!this.selectedId) this.select(playlists[0]); });
+      .subscribe( playlists => { if (!this.selectedId && playlists.length) this.select(playlists[0].id); });
   }
 
   getIdStream() {
@@ -25,5 +25,9 @@ export class PlaylistSelectionService {
   
   addToPlaylist(track) {
     this.playlistService.addToPlaylist(this.selectedId, track);
+  }
+
+  removeFromPlaylist(trackId) {
+    return this.playlistService.removeFromPlaylist(this.selectedId, trackId);
   }
 }

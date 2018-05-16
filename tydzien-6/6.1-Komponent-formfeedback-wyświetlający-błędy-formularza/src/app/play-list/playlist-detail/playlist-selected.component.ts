@@ -7,7 +7,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   template: `
     <h5 class="card-title">{{ title }}</h5>
     <p class="card-text">{{ description }}</p>
-    <button *ngIf='mode == "select"' class="btn btn-primary" (click)="edit()">Edit</button>
+    <div *ngIf='playlist'>
+      <track-list *ngIf='playlist.tracks.length' parentRoot='playlists' [tracks]='playlist.tracks'></track-list>
+      <button class="btn btn-primary" (click)="edit()">Edit</button>
+    </div>
+
   `,
   styles: []
 })
@@ -24,6 +28,7 @@ export class PlaylistSelectedComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.activeRoute.params.subscribe( params => {
 
       let id = parseInt( params['id'] );
@@ -37,7 +42,7 @@ export class PlaylistSelectedComponent implements OnInit {
             this.title = playlist.name;
             this.description = "Click the button to edit details:"
           });
-      } 
+      }
     }) 
   }
 

@@ -11,7 +11,7 @@ import { MusicSearchService } from '../../music-search.service';
       </div>
       <div class="col">
         <h4 class="display-4 mb-4 text-right">Tracks</h4>
-        <track-list [tracks]="album.tracks.items"></track-list>
+        <track-list parentRoot='search' [tracks]="album.tracks.items"></track-list>
       </div>
     </div>
   `,
@@ -24,6 +24,7 @@ export class AlbumDetailsComponent implements OnInit {
   constructor(private musicSearch: MusicSearchService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
     let id = this.activeRoute.snapshot.params['album_id'];
     
     this.musicSearch.getAlbum(id)

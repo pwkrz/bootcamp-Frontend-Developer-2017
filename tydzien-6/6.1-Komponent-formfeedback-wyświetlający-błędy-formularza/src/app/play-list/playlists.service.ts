@@ -33,6 +33,15 @@ export class PlaylistsService {
 
   }
 
+  removeFromPlaylist(playlistId, trackId) {
+
+    let playlist = this.playlists.find( playlist => playlist.id == playlistId );
+
+    playlist.tracks = playlist.tracks.filter( track => track.id != trackId );
+
+    return this.savePlaylist(playlist);
+  }
+
   savePlaylist(playlist) {
     let request;
 
